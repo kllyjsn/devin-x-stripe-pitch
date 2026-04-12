@@ -356,7 +356,7 @@
 <div class="topbar">
   <div class="topbar-brand"><span>devin</span> x stripe &mdash; presenter notes</div>
   <div class="topbar-slide-info">
-    <div class="slide-counter"><span id="currentNum">01</span> <span class="total">/ 13</span></div>
+    <div class="slide-counter"><span id="currentNum">01</span> <span class="total">/ 16</span></div>
     <div class="slide-title-display" id="currentTitle">Title</div>
   </div>
   <div class="topbar-controls">
@@ -368,7 +368,7 @@
 
 <!-- Progress -->
 <div class="progress-bar">
-  <div class="progress-fill" id="progressFill" style="width: 7.7%;"></div>
+  <div class="progress-fill" id="progressFill" style="width: 6.25%;"></div>
 </div>
 
 <!-- Main -->
@@ -389,119 +389,160 @@
 const slides = [
   {
     num: "01", label: "Title", title: "Accelerating SDK Quality with Autonomous Engineering",
-    notes: `<p>Thanks for making time today. I'm Jason Kelley, and I'm here to talk about a specific, high-leverage opportunity to improve the quality of Stripe's SDK infrastructure — starting with stripe-java — using Devin, an autonomous AI software engineer.</p>
-<p>This isn't a general AI pitch. I've done a <strong>deep audit of the stripe-java codebase</strong>, identified real open issues and coverage gaps, and I want to walk you through exactly what we can fix, how fast, and what it saves you.</p>`,
-    tip: null
+    notes: `<p>Thanks for making time today. I'm Jason Kelley, and I'm here to have a <strong>conversation — not just give a presentation</strong> — about a specific, high-leverage opportunity to improve the quality of Stripe's SDK infrastructure using Devin, an autonomous AI software engineer.</p>
+<p>Before I jump into what we've built and what we're proposing, I want to start by sharing what we've learned about your world and making sure we're on the same page.</p>`,
+    tip: "Set the tone early: this is a dialogue, not a sales pitch. Make eye contact and be conversational."
   },
   {
-    num: "02", label: "Opportunity", title: "stripe-java powers millions of businesses",
+    num: "02", label: "Agenda", title: "A conversation, not just a presentation",
+    notes: `<span class="cue">Point to the highlighted first item</span>
+<p>Here's how I'd like to spend our time together. And notice the first item is <strong>highlighted</strong> — that's intentional.</p>
+<p>I want to spend the first <strong>10 to 15 minutes on discovery</strong>. I've done a deep audit of your public SDK portfolio and stripe-java specifically. I'll show you what we've learned, and I'd love your perspective on where we're right, where we're wrong, and what priorities matter most to you.</p>
+<p>After that, we'll spend about 5 minutes on specific issues we've found, 5 minutes on how Devin works, 10 minutes on the impact and cost model, and then open it up for discussion.</p>
+<p>The goal is that by the time we get to the proposal, <strong>it's already shaped by your input</strong>. Sound good?</p>`,
+    tip: "Get a verbal 'yes' or nod here. It sets the collaborative tone for the rest of the meeting."
+  },
+  {
+    num: "03", label: "State of the Union", title: "Here's what we know about Stripe's SDK landscape",
+    notes: `<span class="cue">Point to each card as you go through them</span>
+<p>So let me show you what we've learned. This is our <strong>State of the Union</strong> on Stripe's SDK ecosystem.</p>
+<p><strong>7+ server SDKs</strong> — Java, Node, Python, Ruby, Go, .NET, PHP — each with its own infrastructure layer, test suite, and release process.</p>
+<p><strong>5+ mobile & client SDKs</strong> — Android, iOS, React Native, Terminal, Stripe.js — often with separate teams.</p>
+<p><strong>~Monthly API release cadence</strong> — we've tracked the naming convention: acacia, basil, clover, dahlia. Each release requires coordinated SDK updates across all repos.</p>
+<p><strong>5-10 SDK engineers</strong> — based on commit history: jar-stripe, xavdid-stripe, mbroshi-stripe, richardm-stripe.</p>
+<p><strong>~85% auto-generated code</strong> from your OpenAPI spec. The hand-written 15% — networking, serialization, webhooks, error handling — is where the quality challenges live.</p>
+<p><strong>V2 API migration in progress</strong> — effectively doubling the surface area your team must support.</p>
+<span class="pause">— PAUSE — Ask: "How accurate is this picture?" —</span>
+<p>Listen actively. Take notes. This is the <em>most important part of the meeting</em>. Adjust your framing for the rest of the presentation based on what you hear.</p>`,
+    tip: "This is where you build credibility. Don't rush. Let them react. If someone corrects you, thank them — it shows you're genuinely interested, not just selling."
+  },
+  {
+    num: "04", label: "Deep Dive", title: "What our audit of stripe-java revealed",
+    notes: `<span class="cue">Walk through the three themes on the left, then the snapshot on the right</span>
+<p>Now let me zoom into stripe-java specifically, since that's where we've done the deepest audit.</p>
+<p><strong>Infrastructure quality debt</strong> — 24 open issues, several affecting production error handling. Issue 1846, a ClassCastException that shadows API errors, has been open for <em>18+ months</em>. A community PR for a NumberFormatException fix has been sitting unmerged since January.</p>
+<p><strong>Test coverage gaps</strong> — about 30 hand-written infrastructure files. Your test suite leans heavily on integration tests via stripe-mock. Edge cases in error parsing, retry logic, and telemetry are under-covered at the unit level.</p>
+<p><strong>High-demand feature requests</strong> — GraalVM native image support (5 upvotes), OpenTelemetry hooks, JSpecify nullability annotations. All architectural and time-intensive.</p>
+<span class="pause">— Ask: "Does this match your internal view?" —</span>`,
+    tip: "If they push back on any finding, that's great — it means they're engaged. Use it to refine your understanding."
+  },
+  {
+    num: "05", label: "Discovery", title: "Questions for the room",
+    notes: `<span class="cue">This is the heart of the discovery phase — aim for 5-8 minutes of discussion</span>
+<p>Before we go further, I have six questions. These will help me tailor the rest of the conversation to what actually matters to you.</p>
+<p><strong>For Engineering Leadership:</strong></p>
+<p><strong>Q1:</strong> How does your team currently prioritize <em>infrastructure maintenance vs. new features</em>? — Helps us understand where Devin fits in your workflow.</p>
+<p><strong>Q2:</strong> What's the <em>biggest bottleneck</em> in your SDK release cycle today? — Identifies highest-leverage areas for automation.</p>
+<p><strong>Q3:</strong> How much time per API version release goes to <em>test updates and regression testing</em>? — Quantifies the recurring cost we can offset.</p>
+<p><strong>For Security & Process:</strong></p>
+<p><strong>Q4:</strong> What's your current <em>policy on AI-assisted code changes</em> in production repos? — Shapes deployment model and review requirements.</p>
+<p><strong>Q5:</strong> Do external contributors go through <em>the same CI/review gates</em> as internal PRs? — Ensures Devin integrates with existing workflow.</p>
+<p><strong>Q6:</strong> Are there <em>specific SDK areas you'd welcome outside help</em> on vs. areas that must stay internal? — Defines scope boundaries and builds trust.</p>
+<p>Let them answer. <strong>Take notes.</strong> Reference their answers in later slides. Example: "You mentioned test updates take X hours per release — that maps directly to the cost model I'll show you on slide 13."</p>`,
+    tip: "Don't rush past this slide. The more they talk, the more the rest of the presentation lands. This is where you learn what they actually care about."
+  },
+  {
+    num: "06", label: "Opportunity", title: "stripe-java powers millions of businesses",
     notes: `<span class="cue">Point to each card as you mention it</span>
-<p>Let me start with what I found. These are <strong>four real, open issues</strong> in stripe-java right now.</p>
-<p><strong>Issue 1846</strong> — a ClassCastException that shadows API errors. When Stripe's API returns a non-JSON error, your users don't get a StripeException — they get an uninformative ClassCastException. This has been open since <em>August 2024</em>. That's almost two years.</p>
+<p>Now let me show you four specific issues we found — real, open, each illustrating a different kind of infrastructure quality gap.</p>
+<p><strong>Issue 1846</strong> — a ClassCastException that shadows API errors. When Stripe's API returns a non-JSON error, your users don't get a StripeException — they get an uninformative ClassCastException. Open since <em>August 2024</em>.</p>
 <p><strong>PR 2149</strong> — malformed webhook timestamps cause an unhandled NumberFormatException. A community contributor submitted a fix in January, but it's still sitting open.</p>
-<p><strong>Issue 1964</strong> — enterprise users are asking for OpenTelemetry and Micrometer hooks. Right now the workaround is wrapping the entire library.</p>
+<p><strong>Issue 1964</strong> — enterprise users asking for OpenTelemetry and Micrometer hooks. The workaround is wrapping the entire library.</p>
 <p><strong>Issue 1905</strong> — GraalVM native image support. Five upvotes, increasingly critical as Quarkus, Micronaut, and Spring Native adoption grows.</p>
 <p>These aren't obscure edge cases. They affect <strong>production error handling and developer experience</strong> for your largest customers.</p>`,
     tip: "Spend time here. This slide builds credibility — you've done the homework."
   },
   {
-    num: "03", label: "Challenge", title: "SDK engineers are stretched thin",
+    num: "07", label: "Challenge", title: "SDK engineers are stretched thin",
     notes: `<p>Here's the root cause. stripe-java is primarily auto-generated from your OpenAPI spec — which is the right architecture. But the <strong>hand-written infrastructure layer</strong> — networking, serialization, error handling, webhook verification, retry logic — that's where the real bugs live.</p>
-<p>Your SDK team is small. Based on the PR authors I see — jar-stripe, xavdid-stripe, mbroshi-stripe — you have maybe <strong>5 to 10 engineers covering all the SDKs</strong>. They're focused on shipping new API versions, maintaining the code generator, and supporting the V2 API migration.</p>
-<p>Infrastructure quality improvements — better test coverage, fixing long-tail bugs — those accumulate in the backlog. That's not a criticism. That's a <em>resourcing reality</em>. And it's exactly the kind of work that's well-suited for automation.</p>`,
+<p>Your SDK team is small. Maybe <strong>5 to 10 engineers covering all the SDKs</strong>. They're focused on shipping new API versions, maintaining the code generator, and supporting the V2 API migration.</p>
+<p>Infrastructure quality improvements accumulate in the backlog. That's not a criticism. That's a <em>resourcing reality</em>. And it's exactly the kind of work that's well-suited for automation.</p>`,
     tip: "Frame this as empathy, not criticism. You understand their constraints."
   },
   {
-    num: "04", label: "Solution", title: "Devin: the autonomous software engineer",
+    num: "08", label: "Solution", title: "Devin: the autonomous software engineer",
     notes: `<span class="cue">Walk through the 5-step flow left to right</span>
-<p>So what is Devin? Devin is an AI software engineer built by Cognition. The key difference from tools like Cursor or GitHub Copilot is <strong>autonomy</strong>.</p>
-<p>Copilot-style tools assist while <em>you</em> code. You're in the driver's seat, pointing the tool at files, prompting it, reviewing suggestions line by line.</p>
-<p>Devin works independently. You give it a task — "add unit test coverage for the webhook verification module" — and it explores the codebase on its own. It reads existing tests to learn your conventions. It writes code, runs the build, iterates on failures, and delivers a pull request with passing CI.</p>
+<p>So what is Devin? It's an AI software engineer built by Cognition. The key difference from Cursor or GitHub Copilot is <strong>autonomy</strong>.</p>
+<p>Copilot-style tools assist while <em>you</em> code. You're in the driver's seat. Devin works independently — give it a task, it explores the codebase, writes code, runs the build, iterates on failures, delivers a pull request with passing CI.</p>
 <p>Your engineers <strong>review the output</strong>. They don't steer every step. That's the fundamental shift — from <em>coding time</em> to <em>review time</em>.</p>`,
     tip: null
   },
   {
-    num: "05", label: "Comparison", title: "Why Devin, not Cursor or Claude Code?",
+    num: "09", label: "Comparison", title: "Why Devin, not Cursor or Claude Code?",
     notes: `<span class="cue">Reference each row in the table</span>
 <p>I want to be direct about this comparison because I know you're evaluating multiple tools.</p>
 <p><strong>Autonomy</strong> — Cursor and Claude Code are human-driven, file-at-a-time. Devin runs fully autonomous sessions.</p>
-<p><strong>Build and CI</strong> — this is a big one. With Cursor, you run the build, read the error, go back to the tool, paste the error, get a fix, run again. Devin does that loop autonomously.</p>
-<p><strong>Async execution</strong> — Cursor requires an engineer in the seat. Devin runs in the background while your team does other work. For a team that's already stretched thin, <em>that's the real differentiator</em>.</p>`,
+<p><strong>Build and CI</strong> — With Cursor, you run the build, read the error, paste it back, get a fix, run again. Devin does that loop autonomously.</p>
+<p><strong>Async execution</strong> — Cursor requires an engineer in the seat. Devin runs in the background while your team does other work. <em>That's the real differentiator.</em></p>`,
     tip: "Engineering managers will have the most questions here. Be ready for 'but can it really handle our codebase?'"
   },
   {
-    num: "06", label: "Scope", title: "Three workstreams, 3-5 focused PRs",
+    num: "10", label: "Scope", title: "Three workstreams, 3-5 focused PRs",
     notes: `<span class="cue">Walk through each of the three columns</span>
-<p><strong>First — unit test coverage.</strong> We audit all 30 hand-written infrastructure files, identify gaps, and add edge-case tests for error handling, serialization round-trips, webhook parsing, retry logic, HTTP client behavior, and telemetry. That's 2 to 3 PRs.</p>
-<p><strong>Second — bug fixes.</strong> We resolve the five long-standing issues I showed earlier. ClassCastException, NumberFormatException, serialization round-trip, API version constants, builder null handling. 1 to 2 PRs.</p>
-<p><strong>Third — developer experience groundwork.</strong> JSpecify nullability annotations, GraalVM reachability metadata, improved Javadoc. Incremental work that sets the stage for high-demand features.</p>
-<p>Total: <strong>3 to 5 focused, well-tested PRs</strong>. Designed to require minimal review effort from your team.</p>`,
+<p><strong>First — unit test coverage.</strong> Audit all 30 hand-written infrastructure files. 2 to 3 PRs.</p>
+<p><strong>Second — bug fixes.</strong> Resolve the five long-standing issues. 1 to 2 PRs.</p>
+<p><strong>Third — developer experience groundwork.</strong> JSpecify, GraalVM, Javadoc. Incremental and sets the stage for high-demand features.</p>
+<p>Total: <strong>3 to 5 focused, well-tested PRs</strong>. Designed to require minimal review effort.</p>
+<p><em>Reference their answers:</em> "Based on what you told me earlier about [their priorities], I'd suggest we start with [workstream 1 or 2]."</p>`,
     tip: null
   },
   {
-    num: "07", label: "Cost Analysis", title: "83% cost reduction vs. manual engineering",
+    num: "11", label: "Cost Analysis", title: "83% cost reduction vs. manual engineering",
     notes: `<span class="cue">Reference the table on the left, then the bar chart on the right</span>
-<p>Let's talk numbers. This is the cost comparison for the initial stripe-java engagement.</p>
-<p><strong>Manual approach</strong> — 50 engineer hours at $150 per hour fully loaded. $7,500 and 2 to 3 weeks of wall-clock time. And that's an engineer who isn't working on API features.</p>
-<p><strong>Cursor or Claude Code</strong> — cuts coding time roughly in half, but you still need 25 hours of an engineer in the seat. $3,770.</p>
-<p><strong>Devin Enterprise</strong> — 5 hours of engineer time for PR review, plus about $500 in compute. <em>$1,250 total</em>. That's an 83% reduction.</p>
-<p>The key insight: <strong>human hours dominate the cost</strong>. At $150 an hour, the difference between 25 hours in-seat and 5 hours of review is $3,000 by itself.</p>`,
+<p>Let's talk numbers.</p>
+<p><strong>Manual approach</strong> — 50 engineer hours at $150/hr. $7,500 and 2-3 weeks. And that's an engineer who isn't working on API features.</p>
+<p><strong>Cursor or Claude Code</strong> — cuts coding time roughly in half, but still 25 hours in the seat. $3,770.</p>
+<p><strong>Devin Enterprise</strong> — 5 hours of PR review plus ~$500 compute. <em>$1,250 total</em>. 83% reduction.</p>
+<p>The key insight: <strong>human hours dominate the cost</strong>. The difference between 25 hours in-seat and 5 hours of review is $3,000 by itself.</p>`,
     tip: null
   },
   {
-    num: "08", label: "Annual ROI", title: "$702K\u2013$1.5M in annual value",
+    num: "12", label: "Annual ROI", title: "$702K\u2013$1.5M in annual value",
     notes: `<span class="cue">This is one of your most important slides — slow down</span>
-<p>Now here's where it gets interesting. That $6,250 savings per engagement is just the starting point. The real value is <strong>annual and recurring</strong>.</p>
-<p>Conservative estimate: <strong>$702K per year</strong>. Aggressive: <strong>$1.5 million</strong>. Devin Enterprise cost is $50K to $100K annually. That's roughly a <em>14x return</em>.</p>
-<p>Why is it recurring? Because Stripe ships new API versions roughly monthly. Each version requires test updates, regression testing, and maintenance across all SDKs. This isn't a one-time cleanup — it's an <strong>ongoing engineering function</strong> that Devin can own.</p>
-<p>And for precedent — <strong>Nubank</strong> used Devin to migrate their core ETL monolith, over 6 million lines of code. 12x efficiency improvement. 20x cost savings. Migrations that were projected to take months completed in weeks.</p>`,
+<p>That per-engagement savings is just the starting point. The real value is <strong>annual and recurring</strong>.</p>
+<p>Conservative: <strong>$702K/year</strong>. Aggressive: <strong>$1.5 million</strong>. Devin Enterprise cost: $50K-$100K. That's roughly a <em>14x return</em>.</p>
+<p>Why recurring? Because Stripe ships new API versions roughly monthly. Each requires test updates, regression testing, and maintenance across all SDKs.</p>
+<p>Precedent — <strong>Nubank</strong> used Devin to migrate 6M+ lines of code. 12x efficiency improvement. 20x cost savings.</p>`,
     tip: "For the CTO: lead with $702K\u2013$1.5M and 14x ROI. Emphasize recaptured senior capacity — that's the language CTOs respond to."
   },
   {
-    num: "09", label: "Cost Model", title: "Where the value comes from",
+    num: "13", label: "Cost Model", title: "Where the value comes from",
     notes: `<span class="cue">Walk through each row of the table</span>
-<p><strong>First — direct engineering time saved.</strong> ~20 hours per month per SDK, across 7 SDKs, at $150/hr. That's $252K to $504K per year.</p>
-<p><strong>Second — recaptured senior capacity.</strong> This is the one that resonates most with CTOs. Your SDK engineers are some of your most experienced people. Every hour they spend on routine test maintenance is an hour <em>not</em> spent on Stripe Connect, Billing, Issuing, or the V2 API migration. If Devin recaptures even 20% of their time, that's <strong>$350K to $500K</strong> in redirected capacity.</p>
-<p><strong>Third — incident risk reduction.</strong> Issue 1846 has been open for 18 months. At Stripe's scale, a single SDK bug that causes production errors generates support tickets, erodes trust, triggers fire drills. Conservatively $100K/year, potentially $500K+ for a serious incident.</p>
-<p>And notice the callouts at the bottom — this model only covers 7 SDKs. The real portfolio is <strong>12 to 15 repos</strong>. And the value recurs monthly with every API release.</p>`,
+<p><strong>Engineering time saved</strong> — ~20 hrs/month per SDK x 7 SDKs x $150/hr = $252K-$504K/year.</p>
+<p><strong>Senior capacity recaptured</strong> — this resonates most with CTOs. Every hour on routine maintenance is an hour <em>not</em> spent on Connect, Billing, Issuing, or V2 migration. <strong>$350K-$500K</strong> in redirected capacity.</p>
+<p><strong>Incident risk reduction</strong> — Issue 1846 open 18 months. At Stripe's scale, a single SDK bug generates support tickets, erodes trust, triggers fire drills. $100K-$500K/year.</p>
+<p>And the multipliers: <strong>12-15 repos</strong>, not just 7. Monthly recurring, not one-time.</p>`,
     tip: "If anyone challenges the numbers, point out that each value driver independently justifies the investment."
   },
   {
-    num: "10", label: "Security", title: "Built for enterprise security standards",
+    num: "14", label: "Security", title: "Built for enterprise security standards",
     notes: `<span class="cue">Security officers will focus here — be thorough</span>
-<p><strong>Isolated execution</strong> — every Devin session runs in its own sandboxed VM. No shared state between sessions.</p>
-<p><strong>Full audit trail</strong> — every action is logged and reviewable. Your security team can inspect any session after the fact.</p>
-<p><strong>Secret management</strong> — credentials are encrypted and injected at runtime. Never written to disk, never exposed in logs or commits.</p>
-<p><strong>SOC 2 Type II</strong> — Cognition maintains SOC 2 Type II compliance. Enterprise SSO, RBAC, and data retention policies available.</p>
-<p><strong>No training on your code.</strong> Your proprietary logic stays yours. Zero data retention after session ends.</p>
-<p><strong>SCM integration</strong> — native GitHub integration with branch protection, required reviews, and CI gates. Devin <em>never pushes directly to main</em>.</p>`,
-    tip: "Be prepared for: data residency questions, VPC deployment options, and whether Devin can run in Stripe's cloud. Answer: Cognition offers Dedicated SaaS where the Devbox runs in the customer's cloud."
+<p><strong>Isolated execution</strong> — every session in its own sandboxed VM. No shared state.</p>
+<p><strong>Full audit trail</strong> — every action logged and reviewable.</p>
+<p><strong>Secret management</strong> — encrypted, runtime-injected, never on disk.</p>
+<p><strong>SOC 2 Type II</strong> compliance. Enterprise SSO, RBAC, data retention policies.</p>
+<p><strong>No training on your code.</strong> Zero data retention after session ends.</p>
+<p><strong>SCM integration</strong> — branch protection, required reviews, CI gates. Devin <em>never pushes directly to main</em>.</p>`,
+    tip: "Be prepared for: data residency, VPC deployment, running in Stripe's cloud. Answer: Cognition offers Dedicated SaaS where the Devbox runs in the customer's cloud."
   },
   {
-    num: "11", label: "Timeline", title: "From kickoff to merged PRs in 2 weeks",
+    num: "15", label: "Timeline", title: "From kickoff to merged PRs in 2 weeks",
     notes: `<span class="cue">Walk through Week 1 → Week 2 → Ongoing</span>
-<p><strong>Week 1 — Discovery and first PRs.</strong> Clone the repo, analyze codebase, identify coverage gaps, submit bug fix PRs for issues 1846, 2149, and 2001. Begin unit test coverage work.</p>
-<p><strong>Week 2 — Coverage and polish.</strong> Complete test coverage across all 30 files, iterate on PR review feedback, begin JSpecify/GraalVM groundwork, deliver final coverage report.</p>
-<p><strong>Ongoing</strong> — once we prove the model, extend to other SDKs, maintain coverage as the API evolves, scale to broader infrastructure work.</p>
-<p>The deliverables are concrete: <strong>2-3 bug fix PRs</strong> and a coverage report in week one. <strong>2-3 test coverage PRs</strong> and a DX improvement PR in week two. Then ongoing PRs and multi-SDK coverage.</p>`,
+<p><strong>Week 1</strong> — Clone repo, analyze codebase, submit bug fix PRs for issues 1846, 2149, 2001. Begin unit test coverage.</p>
+<p><strong>Week 2</strong> — Complete coverage across 30 files, iterate on review feedback, begin JSpecify/GraalVM groundwork.</p>
+<p><strong>Ongoing</strong> — Extend to other SDKs, maintain coverage as API evolves, scale to broader infrastructure work.</p>
+<p>Concrete deliverables: <strong>2-3 bug fix PRs</strong> week one. <strong>2-3 test coverage PRs</strong> week two. Then ongoing.</p>`,
     tip: null
   },
   {
-    num: "12", label: "Call to Action", title: "Let\u2019s ship better SDKs, faster.",
+    num: "16", label: "Call to Action", title: "Let's ship better SDKs, faster.",
     notes: `<span class="cue">Make eye contact — this is the ask</span>
-<p>Start with stripe-java. It's the right proving ground — mature codebase, clear coverage gaps, real open issues with community demand.</p>
-<p>We prove the model in two weeks with <strong>measurable results</strong> — merged PRs, quantified coverage improvements, resolved issues.</p>
-<p>Then we scale across the portfolio. stripe-node, stripe-python, stripe-ruby, stripe-go — the same patterns apply with minimal incremental cost.</p>
-<p>Your engineers focus on what they do best — designing APIs, building features, serving developers. <strong>We handle the infrastructure quality layer.</strong></p>
-<p>I'd love to either start a pilot or schedule a deeper technical demo. <em>What works best for your team?</em></p>`,
-    tip: "If asked 'why can't we just do this ourselves?' — acknowledge they absolutely could. The question is whether it's the best use of their senior engineers' time at 14x ROI."
-  },
-  {
-    num: "13", label: "Appendix", title: "Detailed Issue Breakdown",
-    notes: `<p>This is reference material. It breaks down each issue by type, estimated effort, current status, and Devin's approach.</p>
-<p>The key takeaway — total estimated effort across all seven issues is roughly <strong>45 hours of manual engineering</strong>. With Devin, a fraction of that in active human time.</p>
-<p>I'm happy to dive deeper into any specific issue if your engineering managers want to discuss the technical approach.</p>`,
-    tip: "You likely won't present this slide — it's there for the leave-behind. If someone asks about a specific issue, flip here."
+<p>Start with stripe-java. Prove the model in two weeks with <strong>measurable results</strong>.</p>
+<p>Then scale across the portfolio — stripe-node, stripe-python, stripe-ruby, stripe-go. Same patterns, minimal incremental cost.</p>
+<p>Your engineers focus on what they do best. <strong>We handle the infrastructure quality layer.</strong></p>
+<p>I'd love to either start a pilot or schedule a deeper technical demo. <em>What works best for your team?</em></p>
+<p><em>Reference their earlier answers:</em> "Based on what you shared about [priority/bottleneck], I think the fastest way to prove value is [specific workstream]. We could have the first PR up within days."</p>`,
+    tip: "If asked 'why can't we just do this ourselves?' — acknowledge they could. The question is whether it's the best use of their senior engineers' time at 14x ROI."
   }
 ];
 
