@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presenter Notes — Devin x Stripe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --purple: #635BFF;
+    --cyan: #00D4FF;
+    --dark: #0A2540;
+    --surface: #F6F9FC;
+    --border: #E3E8EE;
+    --slate: #425466;
+    --green: #33CB82;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--dark);
+    color: #E3E8EE;
+    -webkit-font-smoothing: antialiased;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Top Bar ── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: rgba(10,37,64,0.95);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    flex-shrink: 0;
+    backdrop-filter: blur(12px);
+  }
+
+  .topbar-brand {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .topbar-brand span { color: var(--purple); }
+
+  .topbar-slide-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .slide-counter {
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .slide-counter .total {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .slide-title-display {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cyan);
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .topbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .key-hint {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.06);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .key-hint kbd {
+    font-family: inherit;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ── Progress Bar ── */
+  .progress-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--purple), var(--cyan));
+    transition: width 0.3s ease;
+  }
+
+  /* ── Main Layout ── */
+  .main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── Slide Nav (left) ── */
+  .slide-nav {
+    width: 200px;
+    flex-shrink: 0;
+    background: rgba(10,37,64,0.6);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    overflow-y: auto;
+    padding: 12px 0;
+  }
+
+  .slide-nav::-webkit-scrollbar { width: 4px; }
+  .slide-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .nav-item:hover { background: rgba(255,255,255,0.04); }
+
+  .nav-item.active {
+    background: rgba(99,91,255,0.1);
+    border-left-color: var(--purple);
+  }
+
+  .nav-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.25);
+    width: 22px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-item.active .nav-num { color: var(--purple); }
+
+  .nav-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-item.active .nav-label { color: white; font-weight: 600; }
+
+  /* ── Notes Panel (center) ── */
+  .notes-panel {
+    flex: 1;
+    overflow-y: auto;
+    padding: 40px 56px;
+    scroll-behavior: smooth;
+  }
+
+  .notes-panel::-webkit-scrollbar { width: 6px; }
+  .notes-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 6px; }
+
+  .notes-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .notes-slide-num {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--purple);
+  }
+
+  .notes-slide-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .notes-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 24px;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+  }
+
+  .notes-body {
+    font-size: 17px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .notes-body p {
+    margin-bottom: 16px;
+  }
+
+  .notes-body strong {
+    color: white;
+    font-weight: 600;
+  }
+
+  .notes-body em {
+    color: var(--cyan);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .notes-body .pause {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.15);
+    margin: 24px 0;
+  }
+
+  .cue {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--purple);
+    background: rgba(99,91,255,0.1);
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  .tip-box {
+    background: rgba(0,212,255,0.06);
+    border: 1px solid rgba(0,212,255,0.15);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .tip-box .tip-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--cyan);
+    margin-bottom: 6px;
+  }
+
+  /* ── Upcoming Panel (right) ── */
+  .upcoming-panel {
+    width: 260px;
+    flex-shrink: 0;
+    background: rgba(10,37,64,0.4);
+    border-left: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 20px;
+    overflow-y: auto;
+  }
+
+  .upcoming-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 16px;
+  }
+
+  .upcoming-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+
+  .upcoming-card-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.2);
+    margin-bottom: 4px;
+  }
+
+  .upcoming-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 6px;
+  }
+
+  .upcoming-card-preview {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.5;
+  }
+
+  .upcoming-card.last-slide {
+    border-color: rgba(99,91,255,0.2);
+    background: rgba(99,91,255,0.04);
+  }
+
+  .upcoming-card.last-slide .upcoming-card-title {
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+  }
+
+  /* ── Timer ── */
+  .timer {
+    font-size: 20px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .timer.warning { color: #FFC043; }
+  .timer.danger { color: #DF1B41; }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <div class="topbar-brand"><span>devin</span> x stripe &mdash; presenter notes</div>
+  <div class="topbar-slide-info">
+    <div class="slide-counter"><span id="currentNum">01</span> <span class="total">/ 13</span></div>
+    <div class="slide-title-display" id="currentTitle">Title</div>
+  </div>
+  <div class="topbar-controls">
+    <div class="key-hint"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> navigate</div>
+    <div class="key-hint"><kbd>T</kbd> timer</div>
+    <div class="timer" id="timer">00:00</div>
+  </div>
+</div>
+
+<!-- Progress -->
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill" style="width: 7.7%;"></div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Left Nav -->
+  <div class="slide-nav" id="slideNav"></div>
+
+  <!-- Center Notes -->
+  <div class="notes-panel" id="notesPanel"></div>
+
+  <!-- Right Upcoming -->
+  <div class="upcoming-panel" id="upcomingPanel"></div>
+
+</div>
+
+<script>
+const slides = [
+  {
+    num: "01", label: "Title", title: "Accelerating SDK Quality with Autonomous Engineering",
+    notes: `<p>Thanks for making time today. I'm Jason Kelley, and I'm here to talk about a specific, high-leverage opportunity to improve the quality of Stripe's SDK infrastructure — starting with stripe-java — using Devin, an autonomous AI software engineer.</p>
+<p>This isn't a general AI pitch. I've done a <strong>deep audit of the stripe-java codebase</strong>, identified real open issues and coverage gaps, and I want to walk you through exactly what we can fix, how fast, and what it saves you.</p>`,
+    tip: null
+  },
+  {
+    num: "02", label: "Opportunity", title: "stripe-java powers millions of businesses",
+    notes: `<span class="cue">Point to each card as you mention it</span>
+<p>Let me start with what I found. These are <strong>four real, open issues</strong> in stripe-java right now.</p>
+<p><strong>Issue 1846</strong> — a ClassCastException that shadows API errors. When Stripe's API returns a non-JSON error, your users don't get a StripeException — they get an uninformative ClassCastException. This has been open since <em>August 2024</em>. That's almost two years.</p>
+<p><strong>PR 2149</strong> — malformed webhook timestamps cause an unhandled NumberFormatException. A community contributor submitted a fix in January, but it's still sitting open.</p>
+<p><strong>Issue 1964</strong> — enterprise users are asking for OpenTelemetry and Micrometer hooks. Right now the workaround is wrapping the entire library.</p>
+<p><strong>Issue 1905</strong> — GraalVM native image support. Five upvotes, increasingly critical as Quarkus, Micronaut, and Spring Native adoption grows.</p>
+<p>These aren't obscure edge cases. They affect <strong>production error handling and developer experience</strong> for your largest customers.</p>`,
+    tip: "Spend time here. This slide builds credibility — you've done the homework."
+  },
+  {
+    num: "03", label: "Challenge", title: "SDK engineers are stretched thin",
+    notes: `<p>Here's the root cause. stripe-java is primarily auto-generated from your OpenAPI spec — which is the right architecture. But the <strong>hand-written infrastructure layer</strong> — networking, serialization, error handling, webhook verification, retry logic — that's where the real bugs live.</p>
+<p>Your SDK team is small. Based on the PR authors I see — jar-stripe, xavdid-stripe, mbroshi-stripe — you have maybe <strong>5 to 10 engineers covering all the SDKs</strong>. They're focused on shipping new API versions, maintaining the code generator, and supporting the V2 API migration.</p>
+<p>Infrastructure quality improvements — better test coverage, fixing long-tail bugs — those accumulate in the backlog. That's not a criticism. That's a <em>resourcing reality</em>. And it's exactly the kind of work that's well-suited for automation.</p>`,
+    tip: "Frame this as empathy, not criticism. You understand their constraints."
+  },
+  {
+    num: "04", label: "Solution", title: "Devin: the autonomous software engineer",
+    notes: `<span class="cue">Walk through the 5-step flow left to right</span>
+<p>So what is Devin? Devin is an AI software engineer built by Cognition. The key difference from tools like Cursor or GitHub Copilot is <strong>autonomy</strong>.</p>
+<p>Copilot-style tools assist while <em>you</em> code. You're in the driver's seat, pointing the tool at files, prompting it, reviewing suggestions line by line.</p>
+<p>Devin works independently. You give it a task — "add unit test coverage for the webhook verification module" — and it explores the codebase on its own. It reads existing tests to learn your conventions. It writes code, runs the build, iterates on failures, and delivers a pull request with passing CI.</p>
+<p>Your engineers <strong>review the output</strong>. They don't steer every step. That's the fundamental shift — from <em>coding time</em> to <em>review time</em>.</p>`,
+    tip: null
+  },
+  {
+    num: "05", label: "Comparison", title: "Why Devin, not Cursor or Claude Code?",
+    notes: `<span class="cue">Reference each row in the table</span>
+<p>I want to be direct about this comparison because I know you're evaluating multiple tools.</p>
+<p><strong>Autonomy</strong> — Cursor and Claude Code are human-driven, file-at-a-time. Devin runs fully autonomous sessions.</p>
+<p><strong>Build and CI</strong> — this is a big one. With Cursor, you run the build, read the error, go back to the tool, paste the error, get a fix, run again. Devin does that loop autonomously.</p>
+<p><strong>Async execution</strong> — Cursor requires an engineer in the seat. Devin runs in the background while your team does other work. For a team that's already stretched thin, <em>that's the real differentiator</em>.</p>`,
+    tip: "Engineering managers will have the most questions here. Be ready for 'but can it really handle our codebase?'"
+  },
+  {
+    num: "06", label: "Scope", title: "Three workstreams, 3-5 focused PRs",
+    notes: `<span class="cue">Walk through each of the three columns</span>
+<p><strong>First — unit test coverage.</strong> We audit all 30 hand-written infrastructure files, identify gaps, and add edge-case tests for error handling, serialization round-trips, webhook parsing, retry logic, HTTP client behavior, and telemetry. That's 2 to 3 PRs.</p>
+<p><strong>Second — bug fixes.</strong> We resolve the five long-standing issues I showed earlier. ClassCastException, NumberFormatException, serialization round-trip, API version constants, builder null handling. 1 to 2 PRs.</p>
+<p><strong>Third — developer experience groundwork.</strong> JSpecify nullability annotations, GraalVM reachability metadata, improved Javadoc. Incremental work that sets the stage for high-demand features.</p>
+<p>Total: <strong>3 to 5 focused, well-tested PRs</strong>. Designed to require minimal review effort from your team.</p>`,
+    tip: null
+  },
+  {
+    num: "07", label: "Cost Analysis", title: "83% cost reduction vs. manual engineering",
+    notes: `<span class="cue">Reference the table on the left, then the bar chart on the right</span>
+<p>Let's talk numbers. This is the cost comparison for the initial stripe-java engagement.</p>
+<p><strong>Manual approach</strong> — 50 engineer hours at $150 per hour fully loaded. $7,500 and 2 to 3 weeks of wall-clock time. And that's an engineer who isn't working on API features.</p>
+<p><strong>Cursor or Claude Code</strong> — cuts coding time roughly in half, but you still need 25 hours of an engineer in the seat. $3,770.</p>
+<p><strong>Devin Enterprise</strong> — 5 hours of engineer time for PR review, plus about $500 in compute. <em>$1,250 total</em>. That's an 83% reduction.</p>
+<p>The key insight: <strong>human hours dominate the cost</strong>. At $150 an hour, the difference between 25 hours in-seat and 5 hours of review is $3,000 by itself.</p>`,
+    tip: null
+  },
+  {
+    num: "08", label: "Annual ROI", title: "$702K\u2013$1.5M in annual value",
+    notes: `<span class="cue">This is one of your most important slides — slow down</span>
+<p>Now here's where it gets interesting. That $6,250 savings per engagement is just the starting point. The real value is <strong>annual and recurring</strong>.</p>
+<p>Conservative estimate: <strong>$702K per year</strong>. Aggressive: <strong>$1.5 million</strong>. Devin Enterprise cost is $50K to $100K annually. That's roughly a <em>14x return</em>.</p>
+<p>Why is it recurring? Because Stripe ships new API versions roughly monthly. Each version requires test updates, regression testing, and maintenance across all SDKs. This isn't a one-time cleanup — it's an <strong>ongoing engineering function</strong> that Devin can own.</p>
+<p>And for precedent — <strong>Nubank</strong> used Devin to migrate their core ETL monolith, over 6 million lines of code. 12x efficiency improvement. 20x cost savings. Migrations that were projected to take months completed in weeks.</p>`,
+    tip: "For the CTO: lead with $702K\u2013$1.5M and 14x ROI. Emphasize recaptured senior capacity — that's the language CTOs respond to."
+  },
+  {
+    num: "09", label: "Cost Model", title: "Where the value comes from",
+    notes: `<span class="cue">Walk through each row of the table</span>
+<p><strong>First — direct engineering time saved.</strong> ~20 hours per month per SDK, across 7 SDKs, at $150/hr. That's $252K to $504K per year.</p>
+<p><strong>Second — recaptured senior capacity.</strong> This is the one that resonates most with CTOs. Your SDK engineers are some of your most experienced people. Every hour they spend on routine test maintenance is an hour <em>not</em> spent on Stripe Connect, Billing, Issuing, or the V2 API migration. If Devin recaptures even 20% of their time, that's <strong>$350K to $500K</strong> in redirected capacity.</p>
+<p><strong>Third — incident risk reduction.</strong> Issue 1846 has been open for 18 months. At Stripe's scale, a single SDK bug that causes production errors generates support tickets, erodes trust, triggers fire drills. Conservatively $100K/year, potentially $500K+ for a serious incident.</p>
+<p>And notice the callouts at the bottom — this model only covers 7 SDKs. The real portfolio is <strong>12 to 15 repos</strong>. And the value recurs monthly with every API release.</p>`,
+    tip: "If anyone challenges the numbers, point out that each value driver independently justifies the investment."
+  },
+  {
+    num: "10", label: "Security", title: "Built for enterprise security standards",
+    notes: `<span class="cue">Security officers will focus here — be thorough</span>
+<p><strong>Isolated execution</strong> — every Devin session runs in its own sandboxed VM. No shared state between sessions.</p>
+<p><strong>Full audit trail</strong> — every action is logged and reviewable. Your security team can inspect any session after the fact.</p>
+<p><strong>Secret management</strong> — credentials are encrypted and injected at runtime. Never written to disk, never exposed in logs or commits.</p>
+<p><strong>SOC 2 Type II</strong> — Cognition maintains SOC 2 Type II compliance. Enterprise SSO, RBAC, and data retention policies available.</p>
+<p><strong>No training on your code.</strong> Your proprietary logic stays yours. Zero data retention after session ends.</p>
+<p><strong>SCM integration</strong> — native GitHub integration with branch protection, required reviews, and CI gates. Devin <em>never pushes directly to main</em>.</p>`,
+    tip: "Be prepared for: data residency questions, VPC deployment options, and whether Devin can run in Stripe's cloud. Answer: Cognition offers Dedicated SaaS where the Devbox runs in the customer's cloud."
+  },
+  {
+    num: "11", label: "Timeline", title: "From kickoff to merged PRs in 2 weeks",
+    notes: `<span class="cue">Walk through Week 1 → Week 2 → Ongoing</span>
+<p><strong>Week 1 — Discovery and first PRs.</strong> Clone the repo, analyze codebase, identify coverage gaps, submit bug fix PRs for issues 1846, 2149, and 2001. Begin unit test coverage work.</p>
+<p><strong>Week 2 — Coverage and polish.</strong> Complete test coverage across all 30 files, iterate on PR review feedback, begin JSpecify/GraalVM groundwork, deliver final coverage report.</p>
+<p><strong>Ongoing</strong> — once we prove the model, extend to other SDKs, maintain coverage as the API evolves, scale to broader infrastructure work.</p>
+<p>The deliverables are concrete: <strong>2-3 bug fix PRs</strong> and a coverage report in week one. <strong>2-3 test coverage PRs</strong> and a DX improvement PR in week two. Then ongoing PRs and multi-SDK coverage.</p>`,
+    tip: null
+  },
+  {
+    num: "12", label: "Call to Action", title: "Let\u2019s ship better SDKs, faster.",
+    notes: `<span class="cue">Make eye contact — this is the ask</span>
+<p>Start with stripe-java. It's the right proving ground — mature codebase, clear coverage gaps, real open issues with community demand.</p>
+<p>We prove the model in two weeks with <strong>measurable results</strong> — merged PRs, quantified coverage improvements, resolved issues.</p>
+<p>Then we scale across the portfolio. stripe-node, stripe-python, stripe-ruby, stripe-go — the same patterns apply with minimal incremental cost.</p>
+<p>Your engineers focus on what they do best — designing APIs, building features, serving developers. <strong>We handle the infrastructure quality layer.</strong></p>
+<p>I'd love to either start a pilot or schedule a deeper technical demo. <em>What works best for your team?</em></p>`,
+    tip: "If asked 'why can't we just do this ourselves?' — acknowledge they absolutely could. The question is whether it's the best use of their senior engineers' time at 14x ROI."
+  },
+  {
+    num: "13", label: "Appendix", title: "Detailed Issue Breakdown",
+    notes: `<p>This is reference material. It breaks down each issue by type, estimated effort, current status, and Devin's approach.</p>
+<p>The key takeaway — total estimated effort across all seven issues is roughly <strong>45 hours of manual engineering</strong>. With Devin, a fraction of that in active human time.</p>
+<p>I'm happy to dive deeper into any specific issue if your engineering managers want to discuss the technical approach.</p>`,
+    tip: "You likely won't present this slide — it's there for the leave-behind. If someone asks about a specific issue, flip here."
+  }
+];
+
+let current = 0;
+let timerRunning = false;
+let timerSeconds = 0;
+let timerInterval = null;
+
+// Build nav
+const nav = document.getElementById('slideNav');
+slides.forEach((s, i) => {
+  const item = document.createElement('div');
+  item.className = 'nav-item' + (i === 0 ? ' active' : '');
+  item.innerHTML = `<span class="nav-num">${s.num}</span><span class="nav-label">${s.label}</span>`;
+  item.onclick = () => goTo(i);
+  nav.appendChild(item);
+});
+
+function goTo(index) {
+  if (index < 0 || index >= slides.length) return;
+  current = index;
+  render();
+}
+
+function render() {
+  const s = slides[current];
+
+  // Counter + title
+  document.getElementById('currentNum').textContent = s.num;
+  document.getElementById('currentTitle').textContent = s.title;
+
+  // Progress
+  document.getElementById('progressFill').style.width = ((current + 1) / slides.length * 100) + '%';
+
+  // Nav active state
+  document.querySelectorAll('.nav-item').forEach((el, i) => {
+    el.classList.toggle('active', i === current);
+    if (i === current) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  });
+
+  // Notes
+  const panel = document.getElementById('notesPanel');
+  let html = `
+    <div class="notes-header">
+      <span class="notes-slide-num">Slide ${s.num}</span>
+      <span class="notes-slide-label">${s.label}</span>
+    </div>
+    <div class="notes-title">${s.title}</div>
+    <div class="notes-body">${s.notes}</div>
+  `;
+  if (s.tip) {
+    html += `<div class="tip-box"><div class="tip-label">Presenter Tip</div>${s.tip}</div>`;
+  }
+  panel.innerHTML = html;
+  panel.scrollTop = 0;
+
+  // Upcoming
+  const upcoming = document.getElementById('upcomingPanel');
+  let upHtml = '<div class="upcoming-label">Up Next</div>';
+  for (let i = current + 1; i < Math.min(current + 4, slides.length); i++) {
+    upHtml += `
+      <div class="upcoming-card" onclick="goTo(${i})" style="cursor:pointer;">
+        <div class="upcoming-card-num">Slide ${slides[i].num}</div>
+        <div class="upcoming-card-title">${slides[i].label}</div>
+        <div class="upcoming-card-preview">${slides[i].title}</div>
+      </div>
+    `;
+  }
+  if (current === slides.length - 1) {
+    upHtml += `<div class="upcoming-card last-slide">
+      <div class="upcoming-card-num">End</div>
+      <div class="upcoming-card-title">No more slides</div>
+      <div class="upcoming-card-preview">You did great.</div>
+    </div>`;
+  }
+  upcoming.innerHTML = upHtml;
+}
+
+// Keyboard nav
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+    e.preventDefault();
+    goTo(current + 1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    goTo(current - 1);
+  } else if (e.key === 'Home') {
+    e.preventDefault();
+    goTo(0);
+  } else if (e.key === 'End') {
+    e.preventDefault();
+    goTo(slides.length - 1);
+  } else if (e.key === 't' || e.key === 'T') {
+    toggleTimer();
+  }
+});
+
+// Timer
+function toggleTimer() {
+  if (timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+  } else {
+    timerRunning = true;
+    timerInterval = setInterval(() => {
+      timerSeconds++;
+      const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+      const s = (timerSeconds % 60).toString().padStart(2, '0');
+      const el = document.getElementById('timer');
+      el.textContent = m + ':' + s;
+      el.className = 'timer' + (timerSeconds > 1500 ? ' danger' : timerSeconds > 1200 ? ' warning' : '');
+    }, 1000);
+  }
+}
+
+// Init
+render();
+</script>
+</body>
+</html>
