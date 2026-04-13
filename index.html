@@ -387,6 +387,8 @@
     font-weight: 500;
     color: rgba(0,0,0,0.25);
     flex-shrink: 0;
+    width: 100%;
+    text-align: left;
   }
   .slide-bottom-bar .slide-num {
     font-weight: 600;
@@ -594,49 +596,49 @@
   <div class="slide-content">
   <div class="slide-label">State of the Union</div>
   <h2>What our audit of stripe-java revealed</h2>
-  <p style="max-width: 900px; margin-bottom: 24px;">We dug into the codebase, open issues, PRs, and community activity. Here's what stands out.</p>
-  <div class="two-col" style="gap: 32px;">
+  <p style="max-width: 900px; margin-bottom: 16px;">We dug into the codebase, open issues, PRs, and community activity. Here's what stands out.</p>
+  <div class="two-col" style="gap: 24px;">
     <div>
-      <div class="card-dark" style="margin-bottom: 12px;">
-        <h3 style="color: var(--stripe-cyan); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Business Impact</h3>
-        <p style="font-size: 14px;">Stripe's 2026 bets &mdash; stablecoin rails, AI billing, agent commerce &mdash; all route through these SDKs. Bugs like <strong style="color: white;">#1846</strong> (18+ months open) erode merchant trust at global scale, creating drag on your most strategic initiatives.</p>
+      <div class="card-dark" style="margin-bottom: 8px; padding: 14px 20px;">
+        <h3 style="color: var(--stripe-cyan); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Business Impact</h3>
+        <p style="font-size: 13px;">Stripe's 2026 bets &mdash; stablecoin rails, AI billing, agent commerce &mdash; all route through these SDKs. Bugs like <strong style="color: white;">#1846</strong> (18+ months open) erode merchant trust at global scale.</p>
       </div>
-      <div class="card-dark" style="margin-bottom: 12px;">
-        <h3 style="color: var(--stripe-cyan); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Engineering Manager Impact</h3>
-        <p style="font-size: 14px;">SDK team stretched across StripeClient migration, V2 rollout, and monthly release trains. An estimated <strong style="color: white;">~20% of senior capacity</strong> consumed by infrastructure maintenance &mdash; capacity better spent on roadmap delivery.</p>
+      <div class="card-dark" style="margin-bottom: 8px; padding: 14px 20px;">
+        <h3 style="color: var(--stripe-cyan); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Engineering Manager Impact</h3>
+        <p style="font-size: 13px;">SDK team stretched across StripeClient migration, V2 rollout, and monthly release trains. An estimated <strong style="color: white;">~20% of senior capacity</strong> consumed by infrastructure maintenance.</p>
       </div>
-      <div class="card-dark">
-        <h3 style="color: var(--stripe-cyan); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Hands-on-Keyboard Impact</h3>
-        <p style="font-size: 14px;">~30 hand-written infra files with thin test coverage. Edge cases in retry logic and error parsing compound as release cadence accelerates. GraalVM &amp; OpenTelemetry gaps block modern framework adoption.</p>
+      <div class="card-dark" style="padding: 14px 20px;">
+        <h3 style="color: var(--stripe-cyan); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Hands-on-Keyboard Impact</h3>
+        <p style="font-size: 13px;">~30 hand-written infra files with thin test coverage. Edge cases in retry logic and error parsing compound as release cadence accelerates. GraalVM &amp; OpenTelemetry gaps block modern framework adoption.</p>
       </div>
     </div>
     <div>
-      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 28px;">
-        <h3 style="color: white; font-size: 17px; margin-bottom: 16px;">stripe-java snapshot</h3>
-        <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px;">
+        <h3 style="color: white; font-size: 16px; margin-bottom: 12px;">stripe-java snapshot</h3>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
           <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px;">
-            <span style="font-size: 14px; color: rgba(255,255,255,0.5);">Language</span>
-            <span style="font-size: 14px; color: white; font-weight: 600;">Java 17+ / v32.x (Gradle, GSON)</span>
+            <span style="font-size: 13px; color: rgba(255,255,255,0.5);">Language</span>
+            <span style="font-size: 13px; color: white; font-weight: 600;">Java 17+ / v32.x (Gradle, GSON)</span>
           </div>
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px;">
-            <span style="font-size: 14px; color: rgba(255,255,255,0.5);">GitHub Stars</span>
-            <span style="font-size: 14px; color: white; font-weight: 600;">~900</span>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;">
+            <span style="font-size: 13px; color: rgba(255,255,255,0.5);">GitHub Stars</span>
+            <span style="font-size: 13px; color: white; font-weight: 600;">~900</span>
           </div>
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px;">
-            <span style="font-size: 14px; color: rgba(255,255,255,0.5);">Open Issues</span>
-            <span style="font-size: 14px; color: white; font-weight: 600;">24</span>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;">
+            <span style="font-size: 13px; color: rgba(255,255,255,0.5);">Open Issues</span>
+            <span style="font-size: 13px; color: white; font-weight: 600;">24</span>
           </div>
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px;">
-            <span style="font-size: 14px; color: rgba(255,255,255,0.5);">Current API Version</span>
-            <span style="font-size: 14px; color: white; font-weight: 600;">2026-03-25.dahlia</span>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;">
+            <span style="font-size: 13px; color: rgba(255,255,255,0.5);">Current API Version</span>
+            <span style="font-size: 13px; color: white; font-weight: 600;">2026-03-25.dahlia</span>
           </div>
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px;">
-            <span style="font-size: 14px; color: rgba(255,255,255,0.5);">Hand-Written Infra Files</span>
-            <span style="font-size: 14px; color: white; font-weight: 600;">~30</span>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 8px;">
+            <span style="font-size: 13px; color: rgba(255,255,255,0.5);">Hand-Written Infra Files</span>
+            <span style="font-size: 13px; color: white; font-weight: 600;">~30</span>
           </div>
           <div style="display: flex; justify-content: space-between;">
-            <span style="font-size: 14px; color: rgba(255,255,255,0.5);">Oldest Open Bug</span>
-            <span style="font-size: 14px; color: #DF1B41; font-weight: 600;">18+ months (#1846)</span>
+            <span style="font-size: 13px; color: rgba(255,255,255,0.5);">Oldest Open Bug</span>
+            <span style="font-size: 13px; color: #DF1B41; font-weight: 600;">18+ months (#1846)</span>
           </div>
         </div>
       </div>
