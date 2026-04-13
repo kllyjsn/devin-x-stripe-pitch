@@ -12,7 +12,24 @@
 
 ---
 
-## Slide 2: Agenda
+## Slide 2: The State of Software Engineering
+**"The state of software engineering has a maintenance problem."**
+
+> Before we dive into Stripe specifically, I want to zoom out for a moment. Because this problem isn't unique to you — it's an industry-wide reality.
+>
+> Across engineering organizations, roughly 60% of developer time goes to maintenance — not building new features, not innovation, but reviewing, stabilizing, and patching older infrastructure. That adds up to $85 billion lost annually.
+>
+> And here's what makes it hard: this work genuinely matters. It's not busy work. Someone has to review those PRs. Someone has to stabilize that test suite. Someone has to fix that 18-month-old bug. And it's usually your most experienced, most expensive engineers doing it.
+>
+> The question we want to explore today isn't whether this work matters — it absolutely does. The question is: *does it have to be your best engineers doing it?*
+>
+> Let me zoom into your world now, and we'll keep shifting between this macro perspective and the specifics throughout the conversation.
+
+**Presenter tip:** This is your opening frame. Keep it brief (90 seconds max) but let the stat land. The "does it have to be your best engineers?" question is the hook for the entire presentation. You'll come back to it on slides 12 and 21.
+
+---
+
+## Slide 4: Agenda
 **"A conversation, not just a presentation"**
 
 > Here's how I'd like to spend our time together. And notice the first item is highlighted — that's intentional.
@@ -25,7 +42,7 @@
 
 ---
 
-## Slide 3: State of the Union
+## Slide 4: State of the Union
 **"Here's what we know about Stripe's SDK landscape"**
 
 > So let me show you what we've learned. This is our State of the Union on Stripe's SDK ecosystem, mapped against your strategic direction.
@@ -54,7 +71,7 @@
 
 ---
 
-## Slide 4: State of the Union — Deep Dive
+## Slide 5: State of the Union — Deep Dive
 **"What our audit of stripe-java revealed"**
 
 > Now let me zoom into stripe-java specifically, since that's where we've done the deepest audit — and I want to connect what we found to the strategic priorities we just discussed.
@@ -73,7 +90,7 @@
 
 ---
 
-## Slide 5: Discovery Questions
+## Slide 6: Discovery Questions
 **"Questions for the room"**
 
 > Before we go further, I have six questions — organized by the three tiers, so each person in the room hears questions that speak to their world.
@@ -96,13 +113,13 @@
 >
 > **Question 6:** Are there specific SDK areas you'd welcome outside help on versus areas that must stay internal? — This defines scope boundaries upfront and builds trust.
 >
-> *Let them answer. Take notes. Reference their answers in later slides. For example: "You mentioned that test updates take X hours per release — that maps directly to the cost model I'll show you on slide 17."*
+> *Let them answer. Take notes. Reference their answers in later slides. For example: "You mentioned that test updates take X hours per release — that maps directly to the cost model I'll show you on slide 18."*
 
 **Presenter tip:** Don't rush past this slide. This is the heart of the discovery phase. Aim for 5-8 minutes of actual discussion here. The 3-group structure naturally invites each persona to contribute. The more they talk, the more the rest of the presentation lands.
 
 ---
 
-## Slide 6: The Opportunity
+## Slide 7: The Opportunity
 **"These issues don't just affect stripe-java. They're friction against Stripe's 2026 roadmap."**
 
 > Now let me show you four specific issues we found — and I want to frame each one not just as a bug or feature request, but as friction against your strategic priorities.
@@ -121,7 +138,7 @@
 
 ---
 
-## Slide 7: Live Demo
+## Slide 8: Live Demo
 **"Let's watch Devin tackle Issue #1846"**
 
 > Okay, so those are the problems. Now let me show you **exactly what it looks like** when Devin tackles one of them.
@@ -134,7 +151,7 @@
 
 ---
 
-## Slide 8: From Issue to PR
+## Slide 9: From Issue to PR
 **"From issue to PR in one session"**
 
 > First — how do you kick off a session? You have four entry points, all equivalent:
@@ -165,7 +182,7 @@
 
 ---
 
-## Slide 9: Real PRs, Real Results
+## Slide 10: Real PRs, Real Results
 **"We already ran Devin on stripe-java. Here are the results."**
 
 > This isn't hypothetical. We already ran Devin on your repo. Here are four real PRs.
@@ -186,7 +203,7 @@
 
 ---
 
-## Slide 10: Platform at Scale
+## Slide 11: Platform at Scale
 **"Scale across all SDKs with the full Devin platform"**
 
 > What we just showed was one session solving one issue. The real power is the **platform layer** that scales this across all your SDKs.
@@ -205,10 +222,10 @@
 
 ---
 
-## Slide 11: The Challenge
+## Slide 12: The Challenge
 **"Your 2026 roadmap is accelerating. SDK infrastructure can't fall behind."**
 
-> Here's the root cause — and this isn't a criticism, it's a resourcing reality that hits every level of your organization.
+> Remember that macro picture I opened with — 60% of engineering time on maintenance? Let me zoom back out for a moment, because this is where the industry problem hits Stripe specifically.
 >
 > Stripe is shipping AI-native products, stablecoin rails, and agent-ready commerce APIs on a monthly cadence. The impact of infrastructure debt ripples across all three tiers:
 >
@@ -222,7 +239,7 @@
 
 ---
 
-## Slide 12: The Solution
+## Slide 13: The Solution
 **"Devin: the autonomous software engineer"**
 
 > So what is Devin? It's an AI software engineer built by Cognition. The key difference from Cursor or GitHub Copilot is autonomy.
@@ -233,7 +250,7 @@
 
 ---
 
-## Slide 13: Competitive Comparison
+## Slide 14: Competitive Comparison
 **"Why Devin, not Cursor or Claude Code?"**
 
 > I want to be direct about this comparison because I know you're evaluating multiple tools.
@@ -246,7 +263,7 @@
 
 ---
 
-## Slide 14: Proposed Scope
+## Slide 15: Proposed Scope
 **"Three workstreams, 3-5 focused PRs"**
 
 > Here's what we're proposing for the initial engagement. Three workstreams, each mapped to a strategic initiative.
@@ -261,7 +278,7 @@
 
 ---
 
-## Slide 15: Cost Analysis
+## Slide 16: Cost Analysis
 **"83% cost reduction vs. manual engineering"**
 
 > Let's talk numbers. Manual approach — 50 hours at $150/hr, $7,500. Cursor or Claude Code — 25 hours, $3,770. Devin Enterprise — 5 hours of review plus compute, $1,250 total.
@@ -270,7 +287,7 @@
 
 ---
 
-## Slide 16: Annual ROI
+## Slide 17: Annual ROI
 **"$702K-$1.5M in annual value"**
 
 > That per-engagement savings is just the starting point. The real value is annual and recurring.
@@ -283,7 +300,7 @@
 
 ---
 
-## Slide 17: Full Cost Model
+## Slide 18: Full Cost Model
 **"Where the value comes from"**
 
 > Three layers of value, each independently justifying the investment.
@@ -298,7 +315,7 @@
 
 ---
 
-## Slide 18: Security & Compliance
+## Slide 19: Security & Compliance
 **"Built for enterprise security standards"**
 
 > I know security is top of mind for a payments infrastructure company. Six key points:
@@ -309,7 +326,7 @@
 
 ---
 
-## Slide 19: Engagement Timeline
+## Slide 20: Engagement Timeline
 **"From kickoff to merged PRs in 2 weeks"**
 
 > Week 1 — discovery and first PRs. Bug fixes for issues 1846, 2149, and 2001. Begin unit test coverage.
@@ -322,27 +339,35 @@
 
 ---
 
-## Slide 20: Call to Action
-**"Let's ship better SDKs, faster."**
+## Slide 21: Close
+**"The opportunities to provide value are clear."**
 
-> Start with stripe-java. Prove the model. Scale across the portfolio. Your engineers focus on what matters — AI-native products, agent-ready commerce, stablecoin rails — while Devin handles the infrastructure quality layer.
+> Let me zoom out one last time. We started with the industry — 60% of engineering time goes to maintenance. We zoomed into Stripe — real issues in your codebase, real cost to your teams, real impact across business strategy, engineering leadership, and developers on the ground.
 >
-> I'd love to either start a pilot or schedule a deeper technical demo where we walk through a live Devin session on your codebase. What works best for your team?
+> You've seen the proof — four real PRs with passing CI. You've seen the numbers — $700K to $1.5M in annual value. And you've seen how the work maps directly to your 2026 priorities.
 >
-> *Reference their earlier answers:* Based on what you shared about [priority/bottleneck], I think the fastest way to prove value is [specific workstream]. We could have the first PR up within days.
+> So it seems abundantly clear that there are opportunities to provide value. The question now is: what's the right combination of high-value impact and where you're comfortable deploying?
+>
+> Maybe we start with test coverage on stripe-java and see how the review process feels. Maybe it's the bug fixes first because they have immediate merchant impact. Maybe it's a different SDK entirely.
+>
+> I don't want to prescribe the answer — I want to figure it out together with your team. What feels like the right starting point?
+
+**Presenter tip:** This is a collaborative close, not a hard sell. Let them suggest the starting point. If they're engaged, they'll self-select into the area where they feel most comfortable. That's exactly what you want — a deployment that starts with buy-in, not compliance.
 
 ---
 
 ## General Tips for Delivery
 
+- **Zoom-in/zoom-out rhythm:** The presentation alternates between macro perspective (industry, slide 2) and Stripe-specific detail. Slide 2 zooms out, slides 3-6 zoom in on Stripe, slides 8-11 zoom in further (demo), slide 12 zooms back out to connect the challenge to the macro theme, slides 13-20 zoom in on solution/ROI, and slide 21 zooms out for the close. This rhythm keeps perspective and prevents the audience from getting lost in details.
 - **Three-tier storytelling:** Every slide should speak to all three personas — business sponsors (revenue/competitive position), engineering managers (team capacity/velocity), and developers (daily workflow/tooling). The 3-tier framework introduced on slide 3 threads through the entire deck.
 - **Strategic narrative threading:** Every slide should connect back to the three Stripe 2026 initiatives — AI-native infrastructure, global reliability, and agent-ready commerce.
-- **Discovery first:** Slides 2-5 are the most important part of the presentation. Spend 10-15 minutes here. The more they talk, the better the rest lands.
-- **Reference their answers:** Throughout slides 6-20, callback to things they said during discovery. "You mentioned X — that's exactly why we prioritized Y."
-- **Demo energy:** Slides 7-10 are the demo flow. Move briskly — this is your "show, don't tell" moment. Spend the most time on slide 8 (session walkthrough) and slide 9 (proof PRs).
-- **Pace:** After the demo, spend the most time on slides 16 (annual ROI) and 18 (security). These generate the most questions from CTOs and security officers respectively.
+- **Discovery first:** Slides 2-6 are the most important part of the presentation. Spend 10-15 minutes here. The more they talk, the better the rest lands.
+- **Reference their answers:** Throughout slides 7-21, callback to things they said during discovery. "You mentioned X — that's exactly why we prioritized Y."
+- **Demo energy:** Slides 8-11 are the demo flow. Move briskly — this is your "show, don't tell" moment. Spend the most time on slide 8 (session walkthrough) and slide 9 (proof PRs).
+- **Pace:** After the demo, spend the most time on slides 17 (annual ROI) and 19 (security). These generate the most questions from CTOs and security officers respectively.
 - **For the CTO:** Lead with the $702K-$1.5M annual value and the strategic alignment. Emphasize recaptured senior capacity for AI-native product work.
 - **For security officers:** Spend extra time on slide 18. Be prepared for questions about data residency, VPC deployment, and audit trails.
-- **For engineering managers:** They'll care most about slides 4-5 (the EM impact tier resonates here), 7-9 (demo), and 14 (scope). They want to see the tool in action and understand the PR review burden. Reference their answers from Q3/Q4 when you get to the cost model.
-- **Objection handling:** If asked "why can't we just do this ourselves?" — acknowledge that they absolutely could. The question is whether it's the best use of their senior engineers' time when they're trying to ship AI-native products and agent-ready commerce APIs.
+- **For engineering managers:** They'll care most about slides 5-6 (the EM impact tier resonates here), 8-10 (demo), and 15 (scope). They want to see the tool in action and understand the PR review burden. Reference their answers from Q3/Q4 when you get to the cost model.
+- **Objection handling:** If asked "why can't we just do this ourselves?" — acknowledge that they absolutely could. Callback to slide 2: the question is whether it's the best use of their senior engineers' time when they're trying to ship AI-native products and agent-ready commerce APIs.
+- **Collaborative close:** The close on slide 21 is intentionally not a hard sell. Let them choose the starting point. The more ownership they feel over the deployment decision, the more likely the pilot succeeds.
 - **Demo PRs:** You have 4 real PRs ready to show as proof of concept: [PR #1](https://github.com/kllyjsn/stripe-java/pull/1), [PR #2](https://github.com/kllyjsn/stripe-java/pull/2), [PR #3](https://github.com/kllyjsn/stripe-java/pull/3), [PR #4](https://github.com/kllyjsn/stripe-java/pull/4). Reference these during the demo section if time allows.
