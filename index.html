@@ -478,7 +478,7 @@
     <span class="logo-text logo-stripe">stripe</span>
   </div>
   <h1>Accelerating SDK Quality<br>with Autonomous Engineering</h1>
-  <p class="subtitle">A discovery conversation and proposal for Stripe's SDK infrastructure</p>
+  <p class="subtitle">Aligning SDK infrastructure quality with Stripe's 2026 strategic initiatives</p>
   <p class="meta">Presented by Jason Kelley &bull; Prepared for Stripe Engineering Leadership &bull; April 2026 &bull; Confidential</p>
   </div>
   <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">01</span></div>
@@ -537,7 +537,7 @@
   <div class="accent-line"></div>
   <div class="slide-label">State of the Union</div>
   <h2>Here's what we know about<br>Stripe's SDK landscape</h2>
-  <p style="max-width: 900px; margin-bottom: 8px; font-size: 15px; color: var(--stripe-slate);">We've done a deep audit of your public SDK portfolio. Here's our understanding &mdash; we'd love you to correct or expand on anything.</p>
+  <p style="max-width: 900px; margin-bottom: 8px; font-size: 15px; color: var(--stripe-slate);">We've audited your public SDK portfolio and mapped it against Stripe's 2026 strategic priorities. Here's our understanding &mdash; we'd love you to correct or expand on anything.</p>
   <div class="sotu-grid">
     <div class="sotu-card">
       <div class="sotu-number">7+</div>
@@ -560,14 +560,14 @@
       <p>Based on commit authors: jar-stripe, xavdid-stripe, mbroshi-stripe, richardm-stripe, and others</p>
     </div>
     <div class="sotu-card">
-      <div class="sotu-number">~85%</div>
-      <h4>Auto-Generated Code</h4>
-      <p>Models and params generated from OpenAPI spec. Hand-written infra: networking, serialization, webhooks, errors</p>
+      <div class="sotu-number">v32.x</div>
+      <h4>Latest SDK &amp; JDK 17+</h4>
+      <p>New <code>StripeClient</code> pattern, CI for JDK 21-24, continuous monthly API upgrades tracking Billing, Tax, and V2 resources</p>
     </div>
     <div class="sotu-card">
-      <div class="sotu-number">V2</div>
-      <h4>API Migration In Progress</h4>
-      <p>Active V2 API rollout alongside V1 maintenance &mdash; doubling the surface area your team must support</p>
+      <div class="sotu-number">2026</div>
+      <h4>Strategic Initiatives</h4>
+      <p>AI-native infrastructure, agent-ready commerce, stablecoin rails, global reliability &mdash; all dependent on SDK quality</p>
     </div>
   </div>
   <div style="margin-top: 16px; padding: 12px 20px; background: rgba(99,91,255,0.04); border: 1px solid rgba(99,91,255,0.12); border-radius: 10px;">
@@ -587,15 +587,15 @@
     <div>
       <div class="card-dark" style="margin-bottom: 16px;">
         <h3 style="color: var(--stripe-cyan); font-size: 16px;">Infrastructure Quality Debt</h3>
-        <p style="font-size: 14px;">24 open issues, several affecting production error handling. Bugs like <strong style="color: white;">#1846</strong> (ClassCastException) open 18+ months. Community PR <strong style="color: white;">#2149</strong> (NumberFormatException fix) unmerged since January.</p>
+        <p style="font-size: 14px;">24 open issues affecting production error handling. Bugs like <strong style="color: white;">#1846</strong> (ClassCastException, 18+ months open) erode merchant trust &mdash; a direct risk to Stripe's global reliability goals.</p>
       </div>
       <div class="card-dark" style="margin-bottom: 16px;">
         <h3 style="color: var(--stripe-cyan); font-size: 16px;">Test Coverage Gaps</h3>
-        <p style="font-size: 14px;">~30 hand-written infrastructure files. Unit tests concentrate on integration tests via stripe-mock. Edge cases in error parsing, retry logic, and telemetry are under-covered.</p>
+        <p style="font-size: 14px;">~30 hand-written infra files with thin unit coverage. As Stripe ships AI billing, stablecoin rails, and agent APIs monthly, untested edge cases in retry logic and error parsing become compounding risk.</p>
       </div>
       <div class="card-dark">
-        <h3 style="color: var(--stripe-cyan); font-size: 16px;">High-Demand Feature Requests</h3>
-        <p style="font-size: 14px;">GraalVM native image (#1905, 5 upvotes), OpenTelemetry hooks (#1964), JSpecify nullability (#2024) &mdash; all architectural and time-intensive for a stretched team.</p>
+        <h3 style="color: var(--stripe-cyan); font-size: 16px;">Roadmap-Blocking Feature Requests</h3>
+        <p style="font-size: 14px;">GraalVM native image (#1905) blocks cloud-native adoption. OpenTelemetry hooks (#1964) block enterprise observability. These gate Stripe's reach into modern Java ecosystems.</p>
       </div>
     </div>
     <div>
@@ -604,7 +604,7 @@
         <div style="display: flex; flex-direction: column; gap: 14px;">
           <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px;">
             <span style="font-size: 14px; color: rgba(255,255,255,0.5);">Language</span>
-            <span style="font-size: 14px; color: white; font-weight: 600;">Java 8+ (Gradle, GSON, Lombok)</span>
+            <span style="font-size: 14px; color: white; font-weight: 600;">Java 17+ / v32.x (Gradle, GSON)</span>
           </div>
           <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px;">
             <span style="font-size: 14px; color: rgba(255,255,255,0.5);">GitHub Stars</span>
@@ -703,27 +703,27 @@
   <div class="slide-content">
   <div class="accent-line"></div>
   <div class="slide-label">The Opportunity</div>
-  <h2>stripe-java powers millions of businesses.<br>Its infrastructure code deserves deeper coverage.</h2>
+  <h2>These issues don't just affect stripe-java.<br>They're friction against Stripe's 2026 roadmap.</h2>
   <div class="card-grid" style="margin-top: 24px;">
     <div class="card">
       <span class="issue-tag">Bug - Open</span>
       <h3>ClassCastException shadows API errors</h3>
-      <p>Issue #1846 &mdash; When the API returns a non-JSON error, users get an uninformative ClassCastException instead of a proper StripeException. Open since August 2024.</p>
+      <p>Issue #1846 &mdash; When the API returns a non-JSON error, users get an uninformative ClassCastException. Open 18+ months. <strong>Impact:</strong> erodes merchant trust as Stripe scales global reliability.</p>
     </div>
     <div class="card">
       <span class="issue-tag">Bug - Open PR</span>
       <h3>NumberFormatException in webhook parsing</h3>
-      <p>PR #2149 &mdash; Malformed webhook timestamps cause unhandled exceptions. Community PR submitted January 2026, still open.</p>
+      <p>PR #2149 &mdash; Malformed webhook timestamps cause unhandled exceptions. <strong>Impact:</strong> webhook reliability is critical for agent-ready commerce and event-driven architectures.</p>
     </div>
     <div class="card">
       <span class="issue-tag">Feature - Requested</span>
       <h3>Micrometer / OpenTelemetry instrumentation</h3>
-      <p>Issue #1964 &mdash; Enterprise users need observability hooks for API calls. Workaround requires wrapping the entire library.</p>
+      <p>Issue #1964 &mdash; Enterprise users need observability hooks for API calls. <strong>Impact:</strong> blocks adoption of AI-native billing and programmable money APIs by large Java platforms.</p>
     </div>
     <div class="card">
       <span class="issue-tag">Feature - 5 upvotes</span>
       <h3>GraalVM Native Image support</h3>
-      <p>Issue #1905 &mdash; Increasingly critical for Quarkus, Micronaut, and Spring Native users. No official reachability metadata.</p>
+      <p>Issue #1905 &mdash; No GraalVM reachability metadata. <strong>Impact:</strong> blocks Stripe's reach into Quarkus, Micronaut, and Spring Native &mdash; the fastest-growing Java deployment targets.</p>
     </div>
   </div>
   </div>
@@ -767,20 +767,20 @@
 <div class="slide slide-dark">
   <div class="slide-content">
   <div class="slide-label">The Challenge</div>
-  <h2>SDK engineers are stretched between<br>generated code and infrastructure quality</h2>
+  <h2>Your 2026 roadmap is accelerating.<br>SDK infrastructure can't fall behind.</h2>
   <div style="margin-top: 16px;" class="two-col">
     <div>
-      <p style="margin-bottom: 20px;">stripe-java's codebase is primarily auto-generated from Stripe's OpenAPI spec. The hand-written infrastructure layer &mdash; networking, serialization, error handling, webhook verification, retry logic &mdash; is where real bugs originate.</p>
-      <p>With SDK engineers focused on API version releases and code generation, infrastructure improvements accumulate in the backlog. Some issues have been open for 18+ months.</p>
+      <p style="margin-bottom: 20px;">Stripe is shipping AI-native products, stablecoin rails, and agent-ready commerce APIs on a monthly cadence. Each release requires SDK updates across Java, Node, Python, Ruby, Go, .NET, and PHP.</p>
+      <p>Your SDK team is focused on <code>StripeClient</code> migration, V2 API rollout, and monthly version trains (dahlia, etc.). Infrastructure quality &mdash; the hand-written 15% where real bugs live &mdash; accumulates in the backlog.</p>
     </div>
     <div>
       <div class="card-dark" style="margin-bottom: 16px;">
-        <h3>24 open issues</h3>
-        <p>Including bugs that affect production error handling and feature requests with significant community demand.</p>
+        <h3>Roadmap vs. maintenance</h3>
+        <p>Every hour on infrastructure debt is an hour not spent on AI billing models, rate cards, or programmable money APIs that drive adoption and revenue.</p>
       </div>
       <div class="card-dark">
-        <h3>~30 hand-written files</h3>
-        <p>Core infrastructure code (networking, GSON adapters, webhooks, telemetry) that would benefit from deeper unit test coverage.</p>
+        <h3>Compounding risk at scale</h3>
+        <p>As Stripe becomes a financial OS for platforms, SDK bugs in error handling and retry logic have outsized impact on merchant trust and support load.</p>
       </div>
     </div>
   </div>
@@ -794,7 +794,7 @@
   <div class="accent-line"></div>
   <div class="slide-label">The Solution</div>
   <h2>Devin: the autonomous software engineer</h2>
-  <p style="max-width: 900px; margin-bottom: 32px;">Devin is an AI software engineer built by Cognition. Unlike copilot-style tools that assist while you code, Devin works independently &mdash; exploring codebases, writing code, running tests, iterating on CI, and delivering pull requests.</p>
+  <p style="max-width: 900px; margin-bottom: 32px;">Devin is an AI software engineer built by Cognition. Unlike copilot-style tools that assist while you code, Devin works independently &mdash; keeping your SDKs in lockstep with monthly API releases while your senior engineers focus on AI-native products and agent-ready commerce.</p>
   <div class="flow-steps">
     <div class="flow-step">
       <div class="step-num">1</div>
@@ -893,50 +893,32 @@
     <div class="card-dark">
       <h3 style="color: var(--stripe-cyan);">1. Unit Test Coverage</h3>
       <div class="divider" style="background: var(--stripe-cyan);"></div>
-      <p>Audit hand-written infrastructure code. Add edge-case tests for:</p>
-      <p style="margin-top: 12px; font-size: 14px;">
-        - Error handling &amp; parsing<br>
-        - GSON serialization round-trips<br>
-        - Webhook signature verification<br>
-        - Retry logic &amp; rate limiting<br>
-        - HTTP client behavior<br>
-        - Telemetry collection
-      </p>
-      <div class="tag-row" style="margin-top: 16px;">
+      <p>Audit hand-written infrastructure code. Add edge-case tests for error handling, serialization, webhooks, retry logic, and telemetry.</p>
+      <div class="tag-row" style="margin-top: 12px;">
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">~30 files</span>
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">2-3 PRs</span>
       </div>
+      <p style="margin-top: 10px; font-size: 12px; color: rgba(255,255,255,0.4);"><strong style="color: rgba(255,255,255,0.6);">Supports:</strong> Global reliability, incident risk reduction</p>
     </div>
     <div class="card-dark">
-      <h3 style="color: var(--stripe-cyan);">2. Bug Fixes</h3>
+      <h3 style="color: var(--stripe-cyan);">2. Bug Fixes &amp; Resilience</h3>
       <div class="divider" style="background: var(--stripe-cyan);"></div>
-      <p>Resolve long-standing open issues in hand-written code:</p>
-      <p style="margin-top: 12px; font-size: 14px;">
-        - #1846 &mdash; ClassCastException fix<br>
-        - #2149 &mdash; NumberFormatException fix<br>
-        - #1925 &mdash; Serialization round-trip<br>
-        - #2001 &mdash; API version constants<br>
-        - #2012 &mdash; Builder null handling
-      </p>
-      <div class="tag-row" style="margin-top: 16px;">
+      <p>Resolve long-standing issues: #1846 ClassCastException, #2149 webhook parsing, #1925 serialization, #2001 version constants, #2012 null handling.</p>
+      <div class="tag-row" style="margin-top: 12px;">
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">5 issues</span>
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">1-2 PRs</span>
       </div>
+      <p style="margin-top: 10px; font-size: 12px; color: rgba(255,255,255,0.4);"><strong style="color: rgba(255,255,255,0.6);">Supports:</strong> Ship AI/stablecoin features without breaking merchants</p>
     </div>
     <div class="card-dark">
-      <h3 style="color: var(--stripe-cyan);">3. Developer Experience</h3>
+      <h3 style="color: var(--stripe-cyan);">3. Platform Reach</h3>
       <div class="divider" style="background: var(--stripe-cyan);"></div>
-      <p>Lay groundwork for high-demand features:</p>
-      <p style="margin-top: 12px; font-size: 14px;">
-        - JSpecify nullability annotations<br>
-        - GraalVM reachability metadata<br>
-        - Improved Javadoc coverage<br>
-        - Test helper utilities for SDK consumers
-      </p>
-      <div class="tag-row" style="margin-top: 16px;">
+      <p>GraalVM native-image metadata, JSpecify nullability, framework integration samples for Spring Boot, Quarkus, and Micronaut.</p>
+      <div class="tag-row" style="margin-top: 12px;">
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">Incremental</span>
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">1-2 PRs</span>
       </div>
+      <p style="margin-top: 10px; font-size: 12px; color: rgba(255,255,255,0.4);"><strong style="color: rgba(255,255,255,0.6);">Supports:</strong> Cloud-native reach, agent-ready commerce</p>
     </div>
   </div>
   </div>
@@ -1023,7 +1005,7 @@
   <div class="accent-line"></div>
   <div class="slide-label">Annual ROI</div>
   <h2>$702K&ndash;$1.5M in annual value<br>across Stripe's SDK portfolio</h2>
-  <p style="max-width: 900px; margin-bottom: 24px;">The real savings aren't one-time &mdash; they compound monthly as Stripe ships new API versions, each requiring test updates, regression testing, and maintenance across 7+ SDKs and 12+ ecosystem repos.</p>
+  <p style="max-width: 900px; margin-bottom: 24px;">The real savings compound monthly as Stripe ships AI-native products, stablecoin APIs, and agent commerce features &mdash; each requiring SDK updates, test coverage, and regression testing across 12+ repos.</p>
   <div class="stats-row">
     <div class="stat-item">
       <div class="stat-number purple">$702K</div>
@@ -1096,12 +1078,16 @@
   </table>
   <div style="display: flex; gap: 16px; margin-top: 12px;">
     <div class="card-dark" style="flex: 1; text-align: center;">
-      <h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Cross-SDK multiplier</h3>
-      <p style="font-size: 13px;"><strong style="color: white;">12-15 repos</strong> &mdash; 7 SDKs + stripe-android, stripe-ios, stripe-react-native, stripe-terminal, and more</p>
+      <h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Supports: AI-Native Infrastructure</h3>
+      <p style="font-size: 12px;">Faster API-surface sync means AI billing, stablecoin, and agent APIs appear in Java at the same time as other SDKs</p>
     </div>
     <div class="card-dark" style="flex: 1; text-align: center;">
-      <h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Recurring, not one-time</h3>
-      <p style="font-size: 13px;"><strong style="color: white;">Monthly API releases</strong> &mdash; each version requires test updates and regression testing across all SDKs</p>
+      <h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Supports: Global Reliability</h3>
+      <p style="font-size: 12px;">Fewer SDK incidents on a major platform keeps support load low and merchant trust high as backend evolves</p>
+    </div>
+    <div class="card-dark" style="flex: 1; text-align: center;">
+      <h3 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Supports: Agent-Ready Commerce</h3>
+      <p style="font-size: 12px;">GraalVM + framework support unlocks modern Java ecosystems for Stripe's next-gen platform APIs</p>
     </div>
   </div>
   </div>
