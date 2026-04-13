@@ -34,7 +34,7 @@
     height: 720px;
     max-height: 720px;
     margin: 0 auto;
-    padding: 72px 96px 56px;
+    padding: 48px 96px 24px;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -371,36 +371,24 @@
     color: rgba(255,255,255,0.6);
   }
 
-  .slide-num {
-    position: absolute;
-    bottom: 12px;
-    right: 48px;
-    font-size: 11px;
-    font-weight: 600;
-    color: rgba(0,0,0,0.15);
-    z-index: 10;
-    pointer-events: none;
-  }
-  .slide-dark .slide-num,
-  .slide-gradient .slide-num,
-  .slide-title .slide-num {
-    color: rgba(255,255,255,0.2);
-  }
-
-  .slide-footer {
-    position: absolute;
-    bottom: 12px;
-    left: 48px;
+  .slide-bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 12px;
     font-size: 11px;
     font-weight: 500;
-    color: rgba(0,0,0,0.15);
-    z-index: 10;
-    pointer-events: none;
+    color: rgba(0,0,0,0.25);
+    flex-shrink: 0;
   }
-  .slide-dark .slide-footer,
-  .slide-gradient .slide-footer,
-  .slide-title .slide-footer {
-    color: rgba(255,255,255,0.2);
+  .slide-bottom-bar .slide-num {
+    font-weight: 600;
+  }
+  .slide-dark .slide-bottom-bar,
+  .slide-gradient .slide-bottom-bar,
+  .slide-title .slide-bottom-bar {
+    color: rgba(255,255,255,0.3);
   }
 
   .two-col {
@@ -485,6 +473,7 @@
   <h1>Accelerating SDK Quality<br>with Autonomous Engineering</h1>
   <p class="subtitle">A discovery conversation and proposal for Stripe's SDK infrastructure</p>
   <p class="meta">Presented by Jason Kelley &bull; Prepared for Stripe Engineering Leadership &bull; April 2026 &bull; Confidential</p>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">01</span></div>
 </div>
 
 <!-- SLIDE 2: AGENDA -->
@@ -529,6 +518,7 @@
       </div>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">02</span></div>
 </div>
 
 <!-- SLIDE 3: STATE OF THE UNION -->
@@ -572,6 +562,7 @@
   <div style="margin-top: 16px; padding: 12px 20px; background: rgba(99,91,255,0.04); border: 1px solid rgba(99,91,255,0.12); border-radius: 10px;">
     <p style="font-size: 14px; color: var(--stripe-slate); margin: 0;"><strong style="color: var(--stripe-purple);">What we'd love to confirm:</strong> How accurate is this picture? Are there constraints or priorities we're missing?</p>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">03</span></div>
 </div>
 
 <!-- SLIDE 4: STATE OF THE UNION - DEEP DIVE -->
@@ -626,6 +617,7 @@
       </div>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">04</span></div>
 </div>
 
 <!-- SLIDE 5: DISCOVERY QUESTIONS -->
@@ -687,6 +679,7 @@
       </div>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">05</span></div>
 </div>
 
 <!-- SLIDE 6: THE OPPORTUNITY -->
@@ -716,6 +709,7 @@
       <p>Issue #1905 &mdash; Increasingly critical for Quarkus, Micronaut, and Spring Native users. No official reachability metadata.</p>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">06</span></div>
 </div>
 
 <!-- SLIDE 7: THE CHALLENGE -->
@@ -738,6 +732,7 @@
       </div>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">07</span></div>
 </div>
 
 <!-- SLIDE 8: WHAT IS DEVIN -->
@@ -773,6 +768,7 @@
       <p>Opens a PR with clean commits, descriptions, and passing CI</p>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">08</span></div>
 </div>
 
 <!-- SLIDE 9: DEVIN VS ALTERNATIVES -->
@@ -828,6 +824,7 @@
       </tr>
     </tbody>
   </table>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">09</span></div>
 </div>
 
 <!-- SLIDE 10: SCOPE OF WORK -->
@@ -884,6 +881,7 @@
       </div>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">10</span></div>
 </div>
 
 <!-- SLIDE 11: COST ANALYSIS -->
@@ -955,6 +953,7 @@
       </div>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">11</span></div>
 </div>
 
 <!-- SLIDE 12: ANNUAL ROI -->
@@ -981,6 +980,7 @@
     <h3 style="color: var(--stripe-purple);">Real-world precedent: Nubank</h3>
     <p>Nubank used Devin to migrate their core ETL monolith &mdash; 6M+ lines of code. Engineers achieved a <strong>12x efficiency improvement</strong> in engineering hours and <strong>20x cost savings</strong>. Migrations that were projected to take months completed in weeks.</p>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">12</span></div>
 </div>
 
 <!-- SLIDE 13: COST MODEL DETAIL -->
@@ -1040,6 +1040,7 @@
       <p style="font-size: 15px;"><strong style="color: white;">Monthly API releases</strong> &mdash; each version requires test updates and regression testing across all SDKs</p>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">13</span></div>
 </div>
 
 <!-- SLIDE 14: SECURITY -->
@@ -1091,6 +1092,7 @@
       </div>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">14</span></div>
 </div>
 
 <!-- SLIDE 15: TIMELINE -->
@@ -1143,6 +1145,7 @@
       </div>
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">15</span></div>
 </div>
 
 <!-- SLIDE 16: CTA -->
@@ -1158,6 +1161,7 @@
       <strong style="color: white;">devin.ai</strong> &nbsp;|&nbsp; hello@cognition.ai
     </div>
   </div>
+  <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">16</span></div>
 </div>
 
 </body>
