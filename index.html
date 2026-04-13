@@ -34,7 +34,7 @@
     height: 720px;
     max-height: 720px;
     margin: 0 auto;
-    padding: 72px 96px;
+    padding: 72px 96px 56px;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -373,11 +373,13 @@
 
   .slide-num {
     position: absolute;
-    bottom: 32px;
+    bottom: 12px;
     right: 48px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    color: rgba(0,0,0,0.2);
+    color: rgba(0,0,0,0.15);
+    z-index: 10;
+    pointer-events: none;
   }
   .slide-dark .slide-num,
   .slide-gradient .slide-num,
@@ -387,11 +389,13 @@
 
   .slide-footer {
     position: absolute;
-    bottom: 32px;
+    bottom: 12px;
     left: 48px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
-    color: rgba(0,0,0,0.2);
+    color: rgba(0,0,0,0.15);
+    z-index: 10;
+    pointer-events: none;
   }
   .slide-dark .slide-footer,
   .slide-gradient .slide-footer,
