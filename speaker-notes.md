@@ -17,7 +17,7 @@
 
 > Here's how I'd like to spend our time together. And notice the first item is highlighted — that's intentional.
 >
-> I want to spend the first 10 to 15 minutes on discovery. I've done a deep audit of your public SDK portfolio and stripe-java specifically, and I've mapped our findings against Stripe's 2026 strategic priorities — AI-native infrastructure, agent-ready commerce, global reliability. I'll show you what we've learned, and I'd love your perspective on where we're right, where we're wrong, and what priorities matter most to you.
+> I want to spend the first 10 to 15 minutes on discovery. I've done a deep audit of your public SDK portfolio and stripe-java specifically, and I've assessed impact at three levels of your organization — business strategy, engineering leadership, and developer experience — all mapped against your 2026 priorities. I'll show you what we've learned, and I'd love your perspective on where we're right, where we're wrong, and what priorities matter most to you.
 >
 > After that, we'll look at specific issues, then I'll walk you through a live demo of 4 real PRs against your codebase, followed by the impact and cost model, and then open it up for discussion.
 >
@@ -44,6 +44,8 @@
 >
 > And here's the strategic context — your 2026 initiatives around AI-native infrastructure, agent-ready commerce, stablecoin rails, and global reliability all depend on SDK quality. If the SDKs can't keep pace, those initiatives hit friction at the developer adoption layer.
 >
+> And at the bottom, you'll see we've structured our impact assessment at three levels: business strategy, engineering leadership, and developer experience. Every finding we share maps to one or more of these tiers — so you can see how it affects your world specifically.
+>
 > **[PAUSE]** How accurate is this picture? Are there constraints or priorities we're missing?
 >
 > *Listen actively. Take notes. This is the most important part of the meeting. Adjust your framing for the rest of the presentation based on what you hear.*
@@ -57,13 +59,13 @@
 
 > Now let me zoom into stripe-java specifically, since that's where we've done the deepest audit — and I want to connect what we found to the strategic priorities we just discussed.
 >
-> On the left, three themes we identified:
+> On the left, we've organized our findings by three impact tiers:
 >
-> Infrastructure quality debt — 24 open issues affecting production error handling. Issue 1846, a ClassCastException that shadows API errors, has been open 18+ months. That kind of bug erodes merchant trust — which is a direct risk to your global reliability goals.
+> **Business Impact** — Stripe's 2026 bets — stablecoin rails, AI billing, agent commerce — all route through these SDKs. Issue 1846, a ClassCastException that shadows API errors, has been open 18+ months. That kind of bug erodes merchant trust at global scale, creating drag on your most strategic initiatives.
 >
-> Test coverage gaps — about 30 hand-written infrastructure files with thin unit coverage. As Stripe ships AI billing, stablecoin rails, and agent APIs on a monthly cadence, untested edge cases in retry logic and error parsing become compounding risk.
+> **Engineering Manager Impact** — your SDK team is stretched across StripeClient migration, V2 rollout, and monthly release trains. We estimate roughly 20% of senior capacity is consumed by infrastructure maintenance — capacity that would be better spent on roadmap delivery.
 >
-> And roadmap-blocking feature requests — GraalVM native image support blocks your reach into cloud-native ecosystems like Quarkus and Micronaut. OpenTelemetry hooks block enterprise observability. These gate Stripe's ability to reach modern Java deployment targets.
+> **Hands-on-Keyboard Impact** — about 30 hand-written infrastructure files with thin test coverage. Edge cases in retry logic and error parsing compound as release cadence accelerates. GraalVM and OpenTelemetry gaps block modern framework adoption for your Java developers.
 >
 > On the right, a quick snapshot — Java 17+, v32.x, Gradle, GSON, current API version dahlia.
 >
@@ -74,27 +76,29 @@
 ## Slide 5: Discovery Questions
 **"Questions for the room"**
 
-> Before we go further, I have six questions — three for engineering leadership and three around security and process. These will help me tailor the rest of the conversation to what actually matters to you.
+> Before we go further, I have six questions — organized by the three tiers, so each person in the room hears questions that speak to their world.
 >
-> *For engineering leadership:*
+> *For executive sponsors — the business layer:*
 >
-> **Question 1:** How does your team currently prioritize infrastructure maintenance versus new features? — Specifically, as you're shipping AI-native products and agent-ready commerce APIs, how do you balance that against SDK infrastructure debt?
+> **Question 1:** How does SDK infrastructure quality factor into your 2026 planning for AI-native products and stablecoin rails? — This helps us connect our work to your strategic priorities.
 >
-> **Question 2:** What's the biggest bottleneck in your SDK release cycle today? — This tells us where automation would have the highest leverage.
+> **Question 2:** When a SDK bug reaches merchants at Stripe's scale, what's the business cost in trust, support load, and adoption friction? — This helps us quantify the risk we're addressing.
 >
-> **Question 3:** How much time per API version release goes to test updates and regression testing? — This helps us quantify the recurring cost we can offset.
+> *For engineering managers — the team operations layer:*
 >
-> *For security and process:*
+> **Question 3:** How does your team prioritize infrastructure maintenance versus new features given the accelerating release cadence? — This tells us where Devin fits in your workflow.
 >
-> **Question 4:** What's your current policy on AI-assisted code changes in production repos? — This shapes how we'd deploy and what review requirements we'd follow.
+> **Question 4:** What's the biggest bottleneck in your SDK release cycle — and how much time goes to test updates per release? — This quantifies the recurring cost we can offset.
 >
-> **Question 5:** Do external contributors go through the same CI and review gates as internal PRs? — This ensures Devin integrates with your existing workflow rather than creating a parallel process.
+> *For developers and security — the hands-on-keyboard layer:*
+>
+> **Question 5:** What's your current policy on AI-assisted code changes in production repos? — This shapes how we'd deploy and what review requirements we'd follow.
 >
 > **Question 6:** Are there specific SDK areas you'd welcome outside help on versus areas that must stay internal? — This defines scope boundaries upfront and builds trust.
 >
 > *Let them answer. Take notes. Reference their answers in later slides. For example: "You mentioned that test updates take X hours per release — that maps directly to the cost model I'll show you on slide 17."*
 
-**Presenter tip:** Don't rush past this slide. This is the heart of the discovery phase. Aim for 5-8 minutes of actual discussion here. The more they talk, the more the rest of the presentation lands.
+**Presenter tip:** Don't rush past this slide. This is the heart of the discovery phase. Aim for 5-8 minutes of actual discussion here. The 3-group structure naturally invites each persona to contribute. The more they talk, the more the rest of the presentation lands.
 
 ---
 
@@ -103,13 +107,13 @@
 
 > Now let me show you four specific issues we found — and I want to frame each one not just as a bug or feature request, but as friction against your strategic priorities.
 >
-> Issue 1846 — a ClassCastException that shadows API errors. 18+ months open. **Impact:** this erodes merchant trust as Stripe scales global reliability.
+> Issue 1846 — a ClassCastException that shadows API errors. 18+ months open. **Business Risk:** this erodes merchant trust and support load as Stripe scales global reliability.
 >
-> PR 2149 — malformed webhook timestamps cause unhandled exceptions. **Impact:** webhook reliability is critical for agent-ready commerce and event-driven architectures.
+> PR 2149 — malformed webhook timestamps cause unhandled exceptions. **Developer Impact:** webhook reliability is the backbone of agent-ready commerce and event-driven architectures.
 >
-> Issue 1964 — enterprise users need OpenTelemetry hooks. **Impact:** this blocks adoption of AI-native billing and programmable money APIs by large Java platforms.
+> Issue 1964 — enterprise users need OpenTelemetry hooks. **EM Impact:** this blocks enterprise adoption of AI-native billing and programmable money APIs at scale.
 >
-> Issue 1905 — no GraalVM reachability metadata. **Impact:** blocks Stripe's reach into Quarkus, Micronaut, and Spring Native — the fastest-growing Java deployment targets.
+> Issue 1905 — no GraalVM reachability metadata. **Developer Impact:** blocks Stripe's reach into Quarkus, Micronaut, and Spring Native — the fastest-growing Java deployment targets.
 >
 > These aren't just technical debt. They're adoption friction for your 2026 initiatives.
 >
@@ -204,11 +208,15 @@
 ## Slide 11: The Challenge
 **"Your 2026 roadmap is accelerating. SDK infrastructure can't fall behind."**
 
-> Here's the root cause — and this isn't a criticism, it's a resourcing reality in the context of your accelerating roadmap.
+> Here's the root cause — and this isn't a criticism, it's a resourcing reality that hits every level of your organization.
 >
-> Stripe is shipping AI-native products, stablecoin rails, and agent-ready commerce APIs on a monthly cadence. Each release requires SDK updates across Java, Node, Python, Ruby, Go, .NET, and PHP.
+> Stripe is shipping AI-native products, stablecoin rails, and agent-ready commerce APIs on a monthly cadence. The impact of infrastructure debt ripples across all three tiers:
 >
-> Your SDK team is focused on the StripeClient migration, V2 API rollout, and monthly version trains. That's the right priority. But infrastructure quality — the hand-written 15% where real bugs like #1846 live — accumulates in the backlog.
+> At the **C-suite level**, delayed SDK quality slows adoption of strategic products — every month a bug like #1846 stays open is merchant trust eroding at global scale.
+>
+> For **engineering managers**, it means constant triage between roadmap and maintenance. Team capacity is finite, and infrastructure work crowds out the strategic projects that drive promotion and recognition.
+>
+> For **developers**, it's untested edge cases that surface as production incidents, thin coverage that makes on-call shifts stressful, and missing framework support that blocks modern development patterns.
 >
 > You just saw in the demo how those exact issues can be resolved autonomously. That's the kind of work that's well-suited for Devin.
 
@@ -243,11 +251,11 @@
 
 > Here's what we're proposing for the initial engagement. Three workstreams, each mapped to a strategic initiative.
 >
-> First — unit test coverage. Audit all 30 hand-written infrastructure files. 2 to 3 PRs. This directly supports **global reliability and incident risk reduction**.
+> First — unit test coverage. Audit all 30 hand-written infrastructure files. 2 to 3 PRs. This is a **Developer + Business** play — directly supports global reliability and incident risk reduction.
 >
-> Second — bug fixes and resilience. Resolve the five long-standing issues. 1 to 2 PRs. This supports **shipping AI and stablecoin features without breaking merchants**.
+> Second — bug fixes and resilience. Resolve the five long-standing issues. 1 to 2 PRs. This is a **Business + EM** play — supports shipping AI and stablecoin features without breaking merchants.
 >
-> Third — platform reach. GraalVM native-image metadata, JSpecify nullability, framework integration samples. This supports **cloud-native reach and agent-ready commerce**.
+> Third — platform reach. GraalVM native-image metadata, JSpecify nullability, framework integration samples. This is a **Developer + EM** play — supports cloud-native reach and agent-ready commerce.
 >
 > *Reference their answers:* Based on what you told me earlier about [their priorities], I'd suggest we start with [workstream 1 or 2].
 
@@ -280,11 +288,11 @@
 
 > Three layers of value, each independently justifying the investment.
 >
-> Engineering time saved — $252K to $504K per year.
+> Engineering time saved — $252K to $504K per year. This maps directly to the **developer tier** — hours your ICs get back.
 >
-> Senior capacity recaptured — this resonates most with CTOs. Your SDK engineers understand the API surface, the type system, the serialization edge cases. Every hour on routine maintenance is an hour not spent on AI billing models, rate cards, or programmable money APIs. $350K to $500K in redirected senior capacity.
+> Senior capacity recaptured — this is the **engineering manager tier** and resonates most with CTOs. Your SDK engineers understand the API surface, the type system, the serialization edge cases. Every hour on routine maintenance is an hour not spent on AI billing models, rate cards, or programmable money APIs. $350K to $500K in redirected senior capacity.
 >
-> Incident risk reduction — issue 1846 has been open 18 months. At Stripe's scale, a single SDK bug generates support tickets, erodes trust, and triggers fire drills. $100K to $500K.
+> Incident risk reduction — the **business tier**. Issue 1846 has been open 18 months. At Stripe's scale, a single SDK bug generates support tickets, erodes trust, and triggers fire drills. $100K to $500K.
 >
 > And at the bottom, the strategic mapping — each value driver directly supports one of your 2026 initiatives: AI-native infrastructure, global reliability, and agent-ready commerce.
 
@@ -327,6 +335,7 @@
 
 ## General Tips for Delivery
 
+- **Three-tier storytelling:** Every slide should speak to all three personas — business sponsors (revenue/competitive position), engineering managers (team capacity/velocity), and developers (daily workflow/tooling). The 3-tier framework introduced on slide 3 threads through the entire deck.
 - **Strategic narrative threading:** Every slide should connect back to the three Stripe 2026 initiatives — AI-native infrastructure, global reliability, and agent-ready commerce.
 - **Discovery first:** Slides 2-5 are the most important part of the presentation. Spend 10-15 minutes here. The more they talk, the better the rest lands.
 - **Reference their answers:** Throughout slides 6-20, callback to things they said during discovery. "You mentioned X — that's exactly why we prioritized Y."
@@ -334,6 +343,6 @@
 - **Pace:** After the demo, spend the most time on slides 16 (annual ROI) and 18 (security). These generate the most questions from CTOs and security officers respectively.
 - **For the CTO:** Lead with the $702K-$1.5M annual value and the strategic alignment. Emphasize recaptured senior capacity for AI-native product work.
 - **For security officers:** Spend extra time on slide 18. Be prepared for questions about data residency, VPC deployment, and audit trails.
-- **For engineering managers:** They'll care most about slides 7-9 (demo) and 14 (scope). They want to see the tool in action and understand the PR review burden.
+- **For engineering managers:** They'll care most about slides 4-5 (the EM impact tier resonates here), 7-9 (demo), and 14 (scope). They want to see the tool in action and understand the PR review burden. Reference their answers from Q3/Q4 when you get to the cost model.
 - **Objection handling:** If asked "why can't we just do this ourselves?" — acknowledge that they absolutely could. The question is whether it's the best use of their senior engineers' time when they're trying to ship AI-native products and agent-ready commerce APIs.
 - **Demo PRs:** You have 4 real PRs ready to show as proof of concept: [PR #1](https://github.com/kllyjsn/stripe-java/pull/1), [PR #2](https://github.com/kllyjsn/stripe-java/pull/2), [PR #3](https://github.com/kllyjsn/stripe-java/pull/3), [PR #4](https://github.com/kllyjsn/stripe-java/pull/4). Reference these during the demo section if time allows.

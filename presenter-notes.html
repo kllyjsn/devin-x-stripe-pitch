@@ -397,7 +397,7 @@ const slides = [
     num: "02", label: "Agenda", title: "A conversation, not just a presentation",
     notes: `<span class="cue">Point to the highlighted first item</span>
 <p>Here's how I'd like to spend our time together. And notice the first item is <strong>highlighted</strong> — that's intentional.</p>
-<p>I want to spend the first <strong>10 to 15 minutes on discovery</strong>. I've done a deep audit of your public SDK portfolio and stripe-java specifically, and I've mapped our findings against Stripe's 2026 strategic priorities. I'll show you what we've learned, and I'd love your perspective on where we're right, where we're wrong, and what priorities matter most to you.</p>
+<p>I want to spend the first <strong>10 to 15 minutes on discovery</strong>. I've done a deep audit of your public SDK portfolio and stripe-java specifically, and I've assessed impact at <strong>three levels of your organization</strong> — business strategy, engineering leadership, and developer experience — all mapped against your 2026 priorities. I'll show you what we've learned, and I'd love your perspective on where we're right, where we're wrong, and what priorities matter most to you.</p>
 <p>After that, we'll spend about specific issues we've found, then a live demo of 4 real PRs against your codebase, followed by the impact and cost model, and then open it up for discussion.</p>
 <p>The goal is that by the time we get to the proposal, <strong>it's already shaped by your input</strong>. Sound good?</p>`,
     tip: "Get a verbal 'yes' or nod here. It sets the collaborative tone for the rest of the meeting."
@@ -412,43 +412,45 @@ const slides = [
 <p><strong>5-10 SDK engineers</strong> — based on commit history: jar-stripe, xavdid-stripe, mbroshi-stripe, richardm-stripe.</p>
 <p><strong>v32.x of the Java SDK</strong> with the new StripeClient pattern, CI running JDK 21-24, and continuous monthly upgrades tracking Billing, Tax, and V2 resources.</p>
 <p><strong>2026 Strategic Initiatives</strong> — AI-native infrastructure, agent-ready commerce, stablecoin rails, and global reliability all depend on SDK quality.</p>
+<p>And at the bottom, you'll see we've structured our impact assessment at <strong>three levels</strong>: business strategy, engineering leadership, and developer experience. Every finding maps to one or more of these tiers.</p>
 <span class="pause">— PAUSE — Ask: "How accurate is this picture?" —</span>
 <p>Listen actively. Take notes. This is the <em>most important part of the meeting</em>. Adjust your framing for the rest of the presentation based on what you hear.</p>`,
-    tip: "This is where you build credibility AND show strategic awareness. When you get to the 2026 initiatives card, pause and let them react. If they confirm or expand on the strategic direction, that's gold for the rest of the presentation."
+    tip: "This is where you build credibility AND show strategic awareness. The 3-tier framework introduction sets up the entire rest of the deck. When you get to the 2026 initiatives card, pause and let them react. If they confirm or expand on the strategic direction, that's gold for the rest of the presentation."
   },
   {
     num: "04", label: "Deep Dive", title: "What our audit of stripe-java revealed",
-    notes: `<span class="cue">Walk through the three themes on the left, then the snapshot on the right</span>
-<p>Now let me zoom into stripe-java specifically, since that's where we've done the deepest audit.</p>
-<p><strong>Infrastructure quality debt</strong> — 24 open issues affecting production error handling. Issue 1846, a ClassCastException (18+ months open) erodes merchant trust — a direct risk to Stripe's <em>global reliability goals</em>.</p>
-<p><strong>Test coverage gaps</strong> — ~30 hand-written infra files with thin unit coverage. As Stripe ships AI billing, stablecoin rails, and agent APIs monthly, untested edge cases become <em>compounding risk</em>.</p>
-<p><strong>Roadmap-blocking feature requests</strong> — GraalVM native image blocks cloud-native adoption. OpenTelemetry hooks block enterprise observability. These gate Stripe's reach into <em>modern Java ecosystems</em>.</p>
+    notes: `<span class="cue">Walk through the three impact tiers on the left, then the snapshot on the right</span>
+<p>Now let me zoom into stripe-java specifically — and I want to show you findings through the three impact tiers.</p>
+<p><strong>Business Impact</strong> — Stripe's 2026 bets all route through these SDKs. Issue 1846, a ClassCastException (18+ months open), erodes merchant trust at global scale — creating drag on your most <em>strategic initiatives</em>.</p>
+<p><strong>Engineering Manager Impact</strong> — your SDK team is stretched across StripeClient migration, V2 rollout, and monthly release trains. Roughly <em>~20% of senior capacity</em> goes to infrastructure maintenance that could be automated.</p>
+<p><strong>Hands-on-Keyboard Impact</strong> — ~30 hand-written infra files with thin coverage. Edge cases compound as release cadence accelerates. GraalVM &amp; OpenTelemetry gaps block <em>modern framework adoption</em>.</p>
 <span class="pause">— Ask: "Does this match your internal view?" —</span>`,
     tip: "If they push back on any finding, that's great — it means they're engaged. Use it to refine your understanding."
   },
   {
     num: "05", label: "Discovery", title: "Questions for the room",
-    notes: `<span class="cue">This is the heart of the discovery phase — aim for 5-8 minutes of discussion</span>
-<p>Before we go further, I have six questions. These will help me tailor the rest of the conversation to what actually matters to you.</p>
-<p><strong>For Engineering Leadership:</strong></p>
-<p><strong>Q1:</strong> How does your team currently prioritize <em>infrastructure maintenance vs. new features</em>? — Specifically, as you're shipping AI-native products and agent-ready commerce APIs, how do you balance that against SDK debt?</p>
-<p><strong>Q2:</strong> What's the <em>biggest bottleneck</em> in your SDK release cycle today? — Identifies highest-leverage areas for automation.</p>
-<p><strong>Q3:</strong> How much time per API version release goes to <em>test updates and regression testing</em>? — Quantifies the recurring cost we can offset.</p>
-<p><strong>For Security & Process:</strong></p>
-<p><strong>Q4:</strong> What's your current <em>policy on AI-assisted code changes</em> in production repos? — Shapes deployment model and review requirements.</p>
-<p><strong>Q5:</strong> Do external contributors go through <em>the same CI/review gates</em> as internal PRs? — Ensures Devin integrates with existing workflow.</p>
-<p><strong>Q6:</strong> Are there <em>specific SDK areas you'd welcome outside help</em> on vs. areas that must stay internal? — Defines scope boundaries and builds trust.</p>
-<p>Let them answer. <strong>Take notes.</strong> Reference their answers in later slides. Example: "You mentioned test updates take X hours per release — that maps directly to the cost model I'll show you on slide 17."</p>`,
-    tip: "Don't rush past this slide. The more they talk, the more the rest of the presentation lands. This is where you learn what they actually care about."
+    notes: `<span class="cue">This is the heart of the discovery phase — 3 groups, one for each persona</span>
+<p>Before we go further, I have six questions — organized by the three tiers, so each person hears questions that speak to their world.</p>
+<p><strong>For Executive Sponsors:</strong></p>
+<p><strong>Q1:</strong> How does <em>SDK infrastructure quality</em> factor into your 2026 planning for AI-native products and stablecoin rails?</p>
+<p><strong>Q2:</strong> When a SDK bug reaches merchants at Stripe's scale, what's the <em>business cost</em> in trust, support load, and adoption friction?</p>
+<p><strong>For Engineering Managers:</strong></p>
+<p><strong>Q3:</strong> How does your team prioritize <em>infrastructure maintenance vs. new features</em> given the accelerating release cadence?</p>
+<p><strong>Q4:</strong> What's the <em>biggest bottleneck</em> in your SDK release cycle — and how much time goes to test updates per release?</p>
+<p><strong>For Developers & Security:</strong></p>
+<p><strong>Q5:</strong> What's your current <em>policy on AI-assisted code changes</em> in production repos?</p>
+<p><strong>Q6:</strong> Are there <em>specific SDK areas you'd welcome outside help</em> on vs. areas that must stay internal?</p>
+<p>Let them answer. <strong>Take notes.</strong> The 3-group structure naturally invites each persona to contribute. Reference their answers in later slides.</p>`,
+    tip: "Don't rush past this slide. The 3-group structure naturally invites each persona to contribute. The more they talk, the more the rest of the presentation lands."
   },
   {
     num: "06", label: "Opportunity", title: "Friction against Stripe's 2026 roadmap",
     notes: `<span class="cue">Point to each card as you mention it</span>
 <p>Now let me show you four specific issues — each one is friction against your strategic priorities.</p>
-<p><strong>Issue 1846</strong> — ClassCastException shadows API errors. 18+ months open. <em>Impact:</em> erodes merchant trust as Stripe scales global reliability.</p>
-<p><strong>PR 2149</strong> — malformed webhook timestamps cause unhandled exceptions. <em>Impact:</em> webhook reliability is critical for agent-ready commerce.</p>
-<p><strong>Issue 1964</strong> — enterprise users need OpenTelemetry hooks. <em>Impact:</em> blocks adoption of AI-native billing APIs by large Java platforms.</p>
-<p><strong>Issue 1905</strong> — no GraalVM reachability metadata. <em>Impact:</em> blocks Stripe's reach into the fastest-growing Java deployment targets.</p>
+<p><strong>Issue 1846</strong> — ClassCastException shadows API errors. 18+ months open. <em>Business Risk:</em> erodes merchant trust and support load as Stripe scales global reliability.</p>
+<p><strong>PR 2149</strong> — malformed webhook timestamps cause unhandled exceptions. <em>Developer Impact:</em> webhook reliability is the backbone of agent-ready commerce.</p>
+<p><strong>Issue 1964</strong> — enterprise users need OpenTelemetry hooks. <em>EM Impact:</em> blocks enterprise adoption of AI-native billing APIs at scale.</p>
+<p><strong>Issue 1905</strong> — no GraalVM reachability metadata. <em>Developer Impact:</em> blocks Stripe's reach into the fastest-growing Java deployment targets.</p>
 <p>These aren't just technical debt. They're <strong>adoption friction for your 2026 initiatives</strong>.</p>`,
     tip: "Spend time here. This slide builds credibility — you've done the homework."
   },
@@ -503,9 +505,9 @@ const slides = [
   },
   {
     num: "11", label: "Challenge", title: "Your 2026 roadmap is accelerating",
-    notes: `<p>Stripe is shipping AI-native products, stablecoin rails, and agent-ready commerce APIs on a monthly cadence. Each release requires SDK updates across Java, Node, Python, Ruby, Go, .NET, and PHP.</p>
-<p>Your SDK team is focused on the <strong>StripeClient migration, V2 API rollout, and monthly version trains</strong>. That's the right priority.</p>
-<p>But infrastructure quality — the hand-written 15% where real bugs live — accumulates in the backlog. Every hour on infra debt is an hour not spent on <em>AI billing models, rate cards, or programmable money APIs</em>.</p>`,
+    notes: `<p>Stripe is shipping AI-native products, stablecoin rails, and agent-ready commerce APIs on a monthly cadence. The impact of infrastructure debt <strong>ripples across every level</strong> of your organization.</p>
+<p>At the <strong>C-suite level</strong>, delayed SDK quality slows adoption of strategic products. For <strong>engineering managers</strong>, it means constant triage between roadmap and maintenance — team capacity is finite. For <strong>developers</strong>, it's untested edge cases that surface as production incidents and missing framework support.</p>
+<p>On the right, you'll see the three impact tiers spelled out — <em>business, EM, and developer</em>. Each one independently justifies action.</p>`,
     tip: "Frame this as empathy, not criticism. You understand their constraints."
   },
   {
@@ -528,9 +530,9 @@ const slides = [
   {
     num: "14", label: "Scope", title: "Three workstreams, 3-5 focused PRs",
     notes: `<span class="cue">Walk through each of the three columns</span>
-<p><strong>First — unit test coverage.</strong> Audit all 30 hand-written infrastructure files. 2 to 3 PRs. <em>Supports: Global reliability, incident risk reduction.</em></p>
-<p><strong>Second — bug fixes &amp; resilience.</strong> Resolve the five long-standing issues. 1 to 2 PRs. <em>Supports: Ship AI/stablecoin features without breaking merchants.</em></p>
-<p><strong>Third — platform reach.</strong> GraalVM native-image metadata, JSpecify nullability, framework samples. <em>Supports: Cloud-native reach, agent-ready commerce.</em></p>
+<p><strong>First — unit test coverage.</strong> Audit all 30 hand-written infrastructure files. 2 to 3 PRs. <em>Developer + Business: Global reliability, incident risk reduction.</em></p>
+<p><strong>Second — bug fixes &amp; resilience.</strong> Resolve the five long-standing issues. 1 to 2 PRs. <em>Business + EM: Ship AI/stablecoin features without breaking merchants.</em></p>
+<p><strong>Third — platform reach.</strong> GraalVM native-image metadata, JSpecify nullability, framework samples. <em>Developer + EM: Cloud-native reach, agent-ready commerce.</em></p>
 <p>Total: <strong>3 to 5 focused, well-tested PRs</strong>. Designed to require minimal review effort.</p>
 <p><em>Reference their answers:</em> "Based on what you told me earlier about [their priorities], I'd suggest we start with [workstream 1 or 2]."</p>`,
     tip: null
@@ -557,10 +559,10 @@ const slides = [
   {
     num: "17", label: "Cost Model", title: "Where the value comes from",
     notes: `<span class="cue">Walk through each row of the table</span>
-<p><strong>Engineering time saved</strong> — ~20 hrs/month per SDK x 7 SDKs x $150/hr = $252K-$504K/year.</p>
-<p><strong>Senior capacity recaptured</strong> — this resonates most with CTOs. Every hour on routine maintenance is an hour <em>not</em> spent on AI billing models, rate cards, or programmable money APIs. <strong>$350K-$500K</strong> in redirected capacity.</p>
-<p><strong>Incident risk reduction</strong> — Issue 1846 open 18 months. At Stripe's scale, a single SDK bug generates support tickets, erodes trust, triggers fire drills. $100K-$500K/year.</p>
-<p>And at the bottom, the strategic mapping — each value driver supports your 2026 initiatives: <strong>AI-native infrastructure, global reliability, agent-ready commerce</strong>.</p>`,
+<p><strong>Engineering time saved</strong> (developer tier) — ~20 hrs/month per SDK x 7 SDKs x $150/hr = $252K-$504K/year.</p>
+<p><strong>Senior capacity recaptured</strong> (EM tier) — this resonates most with CTOs. Every hour on routine maintenance is an hour <em>not</em> spent on AI billing models, rate cards, or programmable money APIs. <strong>$350K-$500K</strong> in redirected capacity.</p>
+<p><strong>Incident risk reduction</strong> (business tier) — Issue 1846 open 18 months. At Stripe's scale, a single SDK bug generates support tickets, erodes trust, triggers fire drills. $100K-$500K/year.</p>
+<p>And at the bottom, the strategic mapping — each value driver maps to one of our three impact tiers — and supports your 2026 initiatives: <strong>AI-native infrastructure, global reliability, agent-ready commerce</strong>.</p>`,
     tip: "If anyone challenges the numbers, point out that each value driver independently justifies the investment."
   },
   {

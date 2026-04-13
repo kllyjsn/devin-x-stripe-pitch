@@ -495,7 +495,7 @@
       <div class="agenda-time">10-15 min</div>
       <div class="agenda-content">
         <h4>Discovery &amp; State of the Union</h4>
-        <p>What we've learned about your SDK landscape, where we'd love your perspective, and aligning on priorities</p>
+        <p>What we've learned about your SDK landscape &mdash; assessed across business, engineering leadership, and developer impact &mdash; and aligning on priorities</p>
       </div>
     </div>
     <div class="agenda-item">
@@ -577,8 +577,13 @@
       <p>AI-native infrastructure, agent-ready commerce, stablecoin rails, global reliability &mdash; all dependent on SDK quality</p>
     </div>
   </div>
-  <div style="margin-top: 16px; padding: 12px 20px; background: rgba(99,91,255,0.04); border: 1px solid rgba(99,91,255,0.12); border-radius: 10px;">
-    <p style="font-size: 14px; color: var(--stripe-slate); margin: 0;"><strong style="color: var(--stripe-purple);">What we'd love to confirm:</strong> How accurate is this picture? Are there constraints or priorities we're missing?</p>
+  <div style="margin-top: 12px; padding: 14px 20px; background: rgba(99,91,255,0.04); border: 1px solid rgba(99,91,255,0.12); border-radius: 10px;">
+    <p style="font-size: 13px; color: var(--stripe-slate); margin: 0 0 8px 0;"><strong style="color: var(--stripe-purple);">We've assessed impact at three levels of your organization:</strong></p>
+    <div style="display: flex; gap: 12px;">
+      <span style="font-size: 11px; font-weight: 700; color: var(--stripe-purple); background: rgba(99,91,255,0.1); padding: 5px 14px; border-radius: 20px;">Business Strategy &mdash; revenue &amp; competitive position</span>
+      <span style="font-size: 11px; font-weight: 700; color: var(--stripe-purple); background: rgba(99,91,255,0.1); padding: 5px 14px; border-radius: 20px;">Engineering Leadership &mdash; team capacity &amp; velocity</span>
+      <span style="font-size: 11px; font-weight: 700; color: var(--stripe-purple); background: rgba(99,91,255,0.1); padding: 5px 14px; border-radius: 20px;">Developer Experience &mdash; daily workflow &amp; tooling</span>
+    </div>
   </div>
   </div>
   <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">03</span></div>
@@ -592,17 +597,17 @@
   <p style="max-width: 900px; margin-bottom: 24px;">We dug into the codebase, open issues, PRs, and community activity. Here's what stands out.</p>
   <div class="two-col" style="gap: 32px;">
     <div>
-      <div class="card-dark" style="margin-bottom: 16px;">
-        <h3 style="color: var(--stripe-cyan); font-size: 16px;">Infrastructure Quality Debt</h3>
-        <p style="font-size: 14px;">24 open issues affecting production error handling. Bugs like <strong style="color: white;">#1846</strong> (ClassCastException, 18+ months open) erode merchant trust &mdash; a direct risk to Stripe's global reliability goals.</p>
+      <div class="card-dark" style="margin-bottom: 12px;">
+        <h3 style="color: var(--stripe-cyan); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Business Impact</h3>
+        <p style="font-size: 14px;">Stripe's 2026 bets &mdash; stablecoin rails, AI billing, agent commerce &mdash; all route through these SDKs. Bugs like <strong style="color: white;">#1846</strong> (18+ months open) erode merchant trust at global scale, creating drag on your most strategic initiatives.</p>
       </div>
-      <div class="card-dark" style="margin-bottom: 16px;">
-        <h3 style="color: var(--stripe-cyan); font-size: 16px;">Test Coverage Gaps</h3>
-        <p style="font-size: 14px;">~30 hand-written infra files with thin unit coverage. As Stripe ships AI billing, stablecoin rails, and agent APIs monthly, untested edge cases in retry logic and error parsing become compounding risk.</p>
+      <div class="card-dark" style="margin-bottom: 12px;">
+        <h3 style="color: var(--stripe-cyan); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Engineering Manager Impact</h3>
+        <p style="font-size: 14px;">SDK team stretched across StripeClient migration, V2 rollout, and monthly release trains. An estimated <strong style="color: white;">~20% of senior capacity</strong> consumed by infrastructure maintenance &mdash; capacity better spent on roadmap delivery.</p>
       </div>
       <div class="card-dark">
-        <h3 style="color: var(--stripe-cyan); font-size: 16px;">Roadmap-Blocking Feature Requests</h3>
-        <p style="font-size: 14px;">GraalVM native image (#1905) blocks cloud-native adoption. OpenTelemetry hooks (#1964) block enterprise observability. These gate Stripe's reach into modern Java ecosystems.</p>
+        <h3 style="color: var(--stripe-cyan); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Hands-on-Keyboard Impact</h3>
+        <p style="font-size: 14px;">~30 hand-written infra files with thin test coverage. Edge cases in retry logic and error parsing compound as release cadence accelerates. GraalVM &amp; OpenTelemetry gaps block modern framework adoption.</p>
       </div>
     </div>
     <div>
@@ -646,56 +651,55 @@
   <div class="slide-content">
   <div class="slide-label">Discovery</div>
   <h2>Questions for the room</h2>
-  <p style="max-width: 800px; margin-bottom: 20px; font-size: 15px;">We want to make sure we're solving the right problems. These questions will help us tailor the proposal to your actual priorities.</p>
-  <div class="two-col" style="gap: 32px;">
+  <p style="max-width: 800px; margin-bottom: 16px; font-size: 15px;">Tailored to each level of your organization &mdash; so we solve the right problems for the right people.</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
     <div>
       <div class="question-group">
-        <div class="question-group-label">For Engineering Leadership</div>
+        <div class="question-group-label">For Executive Sponsors</div>
         <div class="question-card">
           <div class="q-icon">1</div>
           <div>
-            <p>How does your team currently prioritize <strong style="color: white;">infrastructure maintenance vs. new features</strong>?</p>
-            <p class="q-why">Helps us understand where Devin fits in your workflow</p>
+            <p>How does <strong style="color: white;">SDK infrastructure quality</strong> factor into your 2026 planning for AI-native products and stablecoin rails?</p>
           </div>
         </div>
         <div class="question-card">
           <div class="q-icon">2</div>
           <div>
-            <p>What's the <strong style="color: white;">biggest bottleneck</strong> in your SDK release cycle today?</p>
-            <p class="q-why">Identifies highest-leverage areas for automation</p>
-          </div>
-        </div>
-        <div class="question-card">
-          <div class="q-icon">3</div>
-          <div>
-            <p>How much time per API version release goes to <strong style="color: white;">test updates and regression testing</strong>?</p>
-            <p class="q-why">Quantifies the recurring cost we can offset</p>
+            <p>When a SDK bug reaches merchants at Stripe's scale, what's the <strong style="color: white;">business cost</strong> in trust, support load, and adoption friction?</p>
           </div>
         </div>
       </div>
     </div>
     <div>
       <div class="question-group">
-        <div class="question-group-label">For Security &amp; Process</div>
+        <div class="question-group-label">For Engineering Managers</div>
         <div class="question-card">
-          <div class="q-icon">4</div>
+          <div class="q-icon">3</div>
           <div>
-            <p>What's your current <strong style="color: white;">policy on AI-assisted code changes</strong> in production repos?</p>
-            <p class="q-why">Shapes deployment model and review requirements</p>
+            <p>How does your team prioritize <strong style="color: white;">infrastructure maintenance vs. new features</strong> given the accelerating release cadence?</p>
           </div>
         </div>
         <div class="question-card">
+          <div class="q-icon">4</div>
+          <div>
+            <p>What's the <strong style="color: white;">biggest bottleneck</strong> in your SDK release cycle &mdash; and how much time goes to test updates per release?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="question-group">
+        <div class="question-group-label">For Developers &amp; Security</div>
+        <div class="question-card">
           <div class="q-icon">5</div>
           <div>
-            <p>Do external contributors go through <strong style="color: white;">the same CI/review gates</strong> as internal PRs?</p>
-            <p class="q-why">Ensures Devin integrates with existing workflow</p>
+            <p>What's your current <strong style="color: white;">policy on AI-assisted code changes</strong> in production repos?</p>
           </div>
         </div>
         <div class="question-card">
           <div class="q-icon">6</div>
           <div>
             <p>Are there <strong style="color: white;">specific SDK areas you'd welcome outside help</strong> on vs. areas that must stay internal?</p>
-            <p class="q-why">Defines scope boundaries and builds trust</p>
           </div>
         </div>
       </div>
@@ -715,22 +719,22 @@
     <div class="card">
       <span class="issue-tag">Bug - Open</span>
       <h3>ClassCastException shadows API errors</h3>
-      <p>Issue #1846 &mdash; When the API returns a non-JSON error, users get an uninformative ClassCastException. Open 18+ months. <strong>Impact:</strong> erodes merchant trust as Stripe scales global reliability.</p>
+      <p>Issue #1846 &mdash; When the API returns a non-JSON error, users get an uninformative ClassCastException. Open 18+ months. <strong>Business Risk:</strong> erodes merchant trust and support load as Stripe scales global reliability.</p>
     </div>
     <div class="card">
       <span class="issue-tag">Bug - Open PR</span>
       <h3>NumberFormatException in webhook parsing</h3>
-      <p>PR #2149 &mdash; Malformed webhook timestamps cause unhandled exceptions. <strong>Impact:</strong> webhook reliability is critical for agent-ready commerce and event-driven architectures.</p>
+      <p>PR #2149 &mdash; Malformed webhook timestamps cause unhandled exceptions. <strong>Developer Impact:</strong> webhook reliability is the backbone of agent-ready commerce and event-driven architectures.</p>
     </div>
     <div class="card">
       <span class="issue-tag">Feature - Requested</span>
       <h3>Micrometer / OpenTelemetry instrumentation</h3>
-      <p>Issue #1964 &mdash; Enterprise users need observability hooks for API calls. <strong>Impact:</strong> blocks adoption of AI-native billing and programmable money APIs by large Java platforms.</p>
+      <p>Issue #1964 &mdash; Enterprise users need observability hooks for API calls. <strong>EM Impact:</strong> blocks enterprise adoption of AI-native billing and programmable money APIs at scale.</p>
     </div>
     <div class="card">
       <span class="issue-tag">Feature - 5 upvotes</span>
       <h3>GraalVM Native Image support</h3>
-      <p>Issue #1905 &mdash; No GraalVM reachability metadata. <strong>Impact:</strong> blocks Stripe's reach into Quarkus, Micronaut, and Spring Native &mdash; the fastest-growing Java deployment targets.</p>
+      <p>Issue #1905 &mdash; No GraalVM reachability metadata. <strong>Developer Impact:</strong> blocks Stripe's reach into Quarkus, Micronaut, and Spring Native &mdash; the fastest-growing Java deployment targets.</p>
     </div>
   </div>
   </div>
@@ -973,17 +977,21 @@
   <h2>Your 2026 roadmap is accelerating.<br>SDK infrastructure can't fall behind.</h2>
   <div style="margin-top: 16px;" class="two-col">
     <div>
-      <p style="margin-bottom: 20px;">Stripe is shipping AI-native products, stablecoin rails, and agent-ready commerce APIs on a monthly cadence. Each release requires SDK updates across Java, Node, Python, Ruby, Go, .NET, and PHP.</p>
-      <p>Your SDK team is focused on <code>StripeClient</code> migration, V2 API rollout, and monthly version trains (dahlia, etc.). Infrastructure quality &mdash; the hand-written 15% where real bugs live &mdash; accumulates in the backlog.</p>
+      <p style="margin-bottom: 16px;">Stripe is shipping AI-native products, stablecoin rails, and agent-ready commerce APIs on a monthly cadence. The impact of infrastructure debt ripples across every level of your organization.</p>
+      <p>At the <strong style="color: white;">C-suite level</strong>, delayed SDK quality slows adoption of strategic products. For <strong style="color: white;">engineering managers</strong>, it means constant triage between roadmap and maintenance. For <strong style="color: white;">developers</strong>, it's untested edge cases that surface as production incidents.</p>
     </div>
     <div>
-      <div class="card-dark" style="margin-bottom: 16px;">
-        <h3>Roadmap vs. maintenance</h3>
-        <p>Every hour on infrastructure debt is an hour not spent on AI billing models, rate cards, or programmable money APIs that drive adoption and revenue.</p>
+      <div class="card-dark" style="margin-bottom: 10px;">
+        <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--stripe-cyan); margin-bottom: 4px;">Business Impact</h3>
+        <p style="font-size: 14px;">Every hour on infrastructure debt is an hour not spent on AI billing, rate cards, or programmable money APIs that drive adoption and revenue.</p>
+      </div>
+      <div class="card-dark" style="margin-bottom: 10px;">
+        <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--stripe-cyan); margin-bottom: 4px;">Engineering Manager Impact</h3>
+        <p style="font-size: 14px;">Team capacity is finite. Infrastructure maintenance crowds out roadmap delivery, and every monthly release cycle adds more backlog pressure.</p>
       </div>
       <div class="card-dark">
-        <h3>Compounding risk at scale</h3>
-        <p>As Stripe becomes a financial OS for platforms, SDK bugs in error handling and retry logic have outsized impact on merchant trust and support load.</p>
+        <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--stripe-cyan); margin-bottom: 4px;">Developer Impact</h3>
+        <p style="font-size: 14px;">Thin test coverage means more on-call incidents. Stale bugs mean more escalations. Missing GraalVM and OpenTelemetry support blocks modern framework adoption.</p>
       </div>
     </div>
   </div>
@@ -1101,7 +1109,7 @@
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">~30 files</span>
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">2-3 PRs</span>
       </div>
-      <p style="margin-top: 10px; font-size: 12px; color: rgba(255,255,255,0.4);"><strong style="color: rgba(255,255,255,0.6);">Supports:</strong> Global reliability, incident risk reduction</p>
+      <p style="margin-top: 10px; font-size: 12px; color: rgba(255,255,255,0.4);"><strong style="color: rgba(255,255,255,0.6);">Developer + Business:</strong> Global reliability, incident risk reduction</p>
     </div>
     <div class="card-dark">
       <h3 style="color: var(--stripe-cyan);">2. Bug Fixes &amp; Resilience</h3>
@@ -1111,7 +1119,7 @@
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">5 issues</span>
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">1-2 PRs</span>
       </div>
-      <p style="margin-top: 10px; font-size: 12px; color: rgba(255,255,255,0.4);"><strong style="color: rgba(255,255,255,0.6);">Supports:</strong> Ship AI/stablecoin features without breaking merchants</p>
+      <p style="margin-top: 10px; font-size: 12px; color: rgba(255,255,255,0.4);"><strong style="color: rgba(255,255,255,0.6);">Business + EM:</strong> Ship AI/stablecoin features without breaking merchants</p>
     </div>
     <div class="card-dark">
       <h3 style="color: var(--stripe-cyan);">3. Platform Reach</h3>
@@ -1121,7 +1129,7 @@
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">Incremental</span>
         <span class="tag" style="background: rgba(0,212,255,0.15); color: var(--stripe-cyan);">1-2 PRs</span>
       </div>
-      <p style="margin-top: 10px; font-size: 12px; color: rgba(255,255,255,0.4);"><strong style="color: rgba(255,255,255,0.6);">Supports:</strong> Cloud-native reach, agent-ready commerce</p>
+      <p style="margin-top: 10px; font-size: 12px; color: rgba(255,255,255,0.4);"><strong style="color: rgba(255,255,255,0.6);">Developer + EM:</strong> Cloud-native reach, agent-ready commerce</p>
     </div>
   </div>
   </div>
@@ -1281,16 +1289,19 @@
   </table>
   <div style="display: flex; gap: 16px; margin-top: 12px;">
     <div class="card-dark" style="flex: 1; text-align: center;">
-      <h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Supports: AI-Native Infrastructure</h3>
-      <p style="font-size: 12px;">Faster API-surface sync means AI billing, stablecoin, and agent APIs appear in Java at the same time as other SDKs</p>
+      <h3 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--stripe-cyan); margin-bottom: 4px;">Developer Impact</h3>
+      <p style="font-size: 12px;">Faster API-surface sync means developers adopt AI billing, stablecoin, and agent APIs without waiting</p>
+      <p style="font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 4px;">Supports: AI-Native Infrastructure</p>
     </div>
     <div class="card-dark" style="flex: 1; text-align: center;">
-      <h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Supports: Global Reliability</h3>
-      <p style="font-size: 12px;">Fewer SDK incidents on a major platform keeps support load low and merchant trust high as backend evolves</p>
+      <h3 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--stripe-cyan); margin-bottom: 4px;">Engineering Manager Impact</h3>
+      <p style="font-size: 12px;">Fewer incidents frees engineering managers to focus teams on roadmap delivery instead of firefighting</p>
+      <p style="font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 4px;">Supports: Global Reliability</p>
     </div>
     <div class="card-dark" style="flex: 1; text-align: center;">
-      <h3 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 4px;">Supports: Agent-Ready Commerce</h3>
-      <p style="font-size: 12px;">GraalVM + framework support unlocks modern Java ecosystems for Stripe's next-gen platform APIs</p>
+      <h3 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--stripe-cyan); margin-bottom: 4px;">Business Impact</h3>
+      <p style="font-size: 12px;">GraalVM + framework support unlocks modern Java ecosystems for Stripe's next-gen platform revenue</p>
+      <p style="font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 4px;">Supports: Agent-Ready Commerce</p>
     </div>
   </div>
   </div>
