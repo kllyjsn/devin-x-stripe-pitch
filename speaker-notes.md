@@ -118,33 +118,90 @@
 ---
 
 ## Slide 7: Live Demo
-**"Let's see Devin in action on your own codebase"**
+**"Let's watch Devin tackle Issue #1846"**
 
-> So let me show you exactly what this looks like in practice — on your own codebase. I've prepared 4 real pull requests against stripe-java, each demonstrating a different mode of human-AI collaboration.
+> Okay, so those are the problems. Now let me show you **exactly what it looks like** when Devin tackles one of them.
 >
-> *Point to each PR card:*
+> We pointed Devin at Issue #1846 — the ClassCastException bug that's been open for 18+ months. Three numbers to keep in mind: **~25 minutes** of Devin session time. **Zero minutes** of engineer hand-holding. And **one PR** with passing CI at the end.
 >
-> **PR #1 — Bug Fix.** The webhook timestamp parsing issue I just showed you. Devin found the bug, wrote a defensive fix with try-catch, added 3 new test cases, and had a passing PR in under 3 minutes. This is the "speed" story.
->
-> **PR #2 — Cross-File Fix.** The ClassCastException error handling issue. This one required Devin to trace the error path across multiple files, understand the GSON deserialization flow, and add proper type checking. 4 new tests. This is the "depth" story.
->
-> **PR #3 — Test Coverage.** RequestTelemetry had zero unit tests. Devin audited the class, identified 11 distinct behaviors to test — header formatting, thread safety, max queue size, metrics tracking — and wrote a complete test suite from scratch. This is the "scale" story.
->
-> **PR #4 — Feature Build.** I designed the API for public version constants, and Devin implemented the entire class plus 4 tests. Human judgment on the interface, AI execution on the implementation. This is the "collaboration" story.
->
-> *[Open each PR in a browser tab and walk through the code changes. Spend ~2-3 min per PR.]*
->
-> **Links:**
-> - [PR #1: Webhook timestamp fix](https://github.com/kllyjsn/stripe-java/pull/1)
-> - [PR #2: ClassCastException fix](https://github.com/kllyjsn/stripe-java/pull/2)
-> - [PR #3: RequestTelemetry tests](https://github.com/kllyjsn/stripe-java/pull/3)
-> - [PR #4: ApiVersion constants](https://github.com/kllyjsn/stripe-java/pull/4)
+> Let me switch over to the Devin app and walk you through it.
 
-**Presenter tip:** This is the proof point — the moment belief shifts from "interesting concept" to "this actually works." Have the PR tabs pre-loaded in your browser before the meeting. Show the actual diffs — the audience wants to see real code, not slides. Spend the most time on PR #2 (cross-file analysis) and PR #3 (scale) — these are the hardest to replicate with copilot-style tools. After walking through the PRs, transition with: "Now that you've seen what Devin can do, let me put that in the context of your 2026 roadmap."
+**Presenter tip:** This is a high-energy transition. Stand up if you've been sitting. If doing a live demo, open the Devin webapp now. If walking through screenshots, advance briskly.
 
 ---
 
-## Slide 8: The Challenge
+## Slide 8: From Issue to PR
+**"From issue to PR in one session"**
+
+> First — how do you kick off a session? You have four entry points, all equivalent:
+>
+> **Slack** — just @-mention Devin with the issue link. Most teams start here.
+>
+> **Devin Webapp** — open a new session, paste the GitHub issue URL. This is what we'll show today.
+>
+> **GitHub Issues** — assign Devin directly on the issue. It picks it up automatically.
+>
+> **API / Schedule** — trigger via REST API or set up a cron schedule. We'll come back to this on the platform slide.
+>
+> Now look at the session timeline on the right. This is what happened in real time:
+>
+> At **0:00**, Devin reads the issue, then explores the codebase using LSP, grep, cross-file analysis. It navigates code the way an engineer would.
+>
+> By **2:30**, it's identified the root cause — a type cast in LiveStripeResponseGetter that assumes JSON responses.
+>
+> **5:00** — writes the fix and adds test coverage. Multi-file edit.
+>
+> **12:00** — runs the full Gradle build and test suite. If something fails, it reads the error and iterates. No human needed.
+>
+> **18:00** — CI is green. Opens a PR with clean commits, a description that links the issue, and all tests passing.
+>
+> **25:00** — ready for review. *Your engineer spends 15 minutes reviewing, not hours coding.*
+
+**Presenter tip:** If doing a live demo, click through the actual Devin session timeline. Point to the shell, editor, and browser panels. If using screenshots, advance through them at this pace.
+
+---
+
+## Slide 9: Real PRs, Real Results
+**"We already ran Devin on stripe-java. Here are the results."**
+
+> This isn't hypothetical. We already ran Devin on your repo. Here are four real PRs.
+>
+> **PR #1** — the ClassCastException fix we just walked through. Wraps response parsing with proper type checking. Adds 6 unit tests covering HTML, empty, and malformed error responses.
+>
+> **PR #2** — NumberFormatException in webhook verification. Validates timestamps before parsing. Edge-case tests for malformed, negative, and overflow values.
+>
+> **PR #3** — comprehensive infrastructure test suite. Unit tests across networking, serialization, retry logic, and telemetry.
+>
+> **PR #4** — GraalVM reachability metadata and JSpecify annotation groundwork. Resolves Issue #1905 that your community has been asking for.
+>
+> All four PRs have **passing CI**. Total Devin compute time: ~2 hours. Total human review time: ~45 minutes. Total cost: ~$70 in ACUs.
+>
+> *These are ready for your team to review right now if you'd like.*
+
+**Presenter tip:** This is your strongest credibility moment. Offer to pull up the actual PRs on GitHub. Have the PR URLs ready: [PR #1](https://github.com/kllyjsn/stripe-java/pull/1), [PR #2](https://github.com/kllyjsn/stripe-java/pull/2), [PR #3](https://github.com/kllyjsn/stripe-java/pull/3), [PR #4](https://github.com/kllyjsn/stripe-java/pull/4).
+
+---
+
+## Slide 10: Platform at Scale
+**"Scale across all SDKs with the full Devin platform"**
+
+> What we just showed was one session solving one issue. The real power is the **platform layer** that scales this across all your SDKs.
+>
+> **Knowledge** — Devin learns your conventions, test patterns, and repo structure. No re-onboarding every time.
+>
+> **Playbooks** — codify repeatable workflows. "For each new API version, update tests across all 7 SDKs." Write it once, run it every release.
+>
+> **Batch Sessions** — parallelize across repos. 7 simultaneous sessions, one per SDK, each applying the same fix. What takes a human team a week happens in one afternoon.
+>
+> **Scheduling & CI Hooks** — nightly test audits or auto-triggered sessions on CI failures. Devin monitors your repos and acts before you notice the problem.
+>
+> The vision: *Every time Stripe ships a new API version, Devin automatically updates tests, validates coverage, and opens PRs across all SDKs — before your team starts their morning.*
+
+**Presenter tip:** This slide is about vision. Paint the picture of Devin as a persistent team member, not a one-off tool. If time is tight, hit Knowledge and Batch Sessions and skip the other two.
+
+---
+
+## Slide 11: The Challenge
 **"Your 2026 roadmap is accelerating. SDK infrastructure can't fall behind."**
 
 > Here's the root cause — and this isn't a criticism, it's a resourcing reality in the context of your accelerating roadmap.
@@ -157,7 +214,7 @@
 
 ---
 
-## Slide 9: The Solution
+## Slide 12: The Solution
 **"Devin: the autonomous software engineer"**
 
 > So what is Devin? It's an AI software engineer built by Cognition. The key difference from Cursor or GitHub Copilot is autonomy.
@@ -168,7 +225,7 @@
 
 ---
 
-## Slide 10: Competitive Comparison
+## Slide 13: Competitive Comparison
 **"Why Devin, not Cursor or Claude Code?"**
 
 > I want to be direct about this comparison because I know you're evaluating multiple tools.
@@ -181,7 +238,7 @@
 
 ---
 
-## Slide 11: Proposed Scope
+## Slide 14: Proposed Scope
 **"Three workstreams, 3-5 focused PRs"**
 
 > Here's what we're proposing for the initial engagement. Three workstreams, each mapped to a strategic initiative.
@@ -196,7 +253,7 @@
 
 ---
 
-## Slide 12: Cost Analysis
+## Slide 15: Cost Analysis
 **"83% cost reduction vs. manual engineering"**
 
 > Let's talk numbers. Manual approach — 50 hours at $150/hr, $7,500. Cursor or Claude Code — 25 hours, $3,770. Devin Enterprise — 5 hours of review plus compute, $1,250 total.
@@ -205,7 +262,7 @@
 
 ---
 
-## Slide 13: Annual ROI
+## Slide 16: Annual ROI
 **"$702K-$1.5M in annual value"**
 
 > That per-engagement savings is just the starting point. The real value is annual and recurring.
@@ -218,7 +275,7 @@
 
 ---
 
-## Slide 14: Full Cost Model
+## Slide 17: Full Cost Model
 **"Where the value comes from"**
 
 > Three layers of value, each independently justifying the investment.
@@ -233,7 +290,7 @@
 
 ---
 
-## Slide 15: Security & Compliance
+## Slide 18: Security & Compliance
 **"Built for enterprise security standards"**
 
 > I know security is top of mind for a payments infrastructure company. Six key points:
@@ -244,7 +301,7 @@
 
 ---
 
-## Slide 16: Engagement Timeline
+## Slide 19: Engagement Timeline
 **"From kickoff to merged PRs in 2 weeks"**
 
 > Week 1 — discovery and first PRs. Bug fixes for issues 1846, 2149, and 2001. Begin unit test coverage.
@@ -257,7 +314,7 @@
 
 ---
 
-## Slide 17: Call to Action
+## Slide 20: Call to Action
 **"Let's ship better SDKs, faster."**
 
 > Start with stripe-java. Prove the model. Scale across the portfolio. Your engineers focus on what matters — AI-native products, agent-ready commerce, stablecoin rails — while Devin handles the infrastructure quality layer.
@@ -272,11 +329,11 @@
 
 - **Strategic narrative threading:** Every slide should connect back to the three Stripe 2026 initiatives — AI-native infrastructure, global reliability, and agent-ready commerce.
 - **Discovery first:** Slides 2-5 are the most important part of the presentation. Spend 10-15 minutes here. The more they talk, the better the rest lands.
-- **Demo is the proof point:** Slide 7 is where belief shifts from "interesting concept" to "this actually works." Have PR tabs pre-loaded and walk through real code diffs. Spend 10-12 minutes here.
-- **Reference their answers:** Throughout slides 8-17, callback to things they said during discovery. "You mentioned X — that's exactly why we prioritized Y."
-- **Pace:** After discovery, spend the most time on slides 13 (annual ROI) and 15 (security). These generate the most questions from CTOs and security officers respectively.
+- **Reference their answers:** Throughout slides 6-20, callback to things they said during discovery. "You mentioned X — that's exactly why we prioritized Y."
+- **Demo energy:** Slides 7-10 are the demo flow. Move briskly — this is your "show, don't tell" moment. Spend the most time on slide 8 (session walkthrough) and slide 9 (proof PRs).
+- **Pace:** After the demo, spend the most time on slides 16 (annual ROI) and 18 (security). These generate the most questions from CTOs and security officers respectively.
 - **For the CTO:** Lead with the $702K-$1.5M annual value and the strategic alignment. Emphasize recaptured senior capacity for AI-native product work.
-- **For security officers:** Spend extra time on slide 15. Be prepared for questions about data residency, VPC deployment, and audit trails.
-- **For engineering managers:** They'll care most about slides 6-7 (the issues + demo), 10 (comparison), and 11 (scope). They want to know the issues are real, the approach is sound, and the PRs won't create review burden.
-- **Objection handling:** If asked "why can't we just do this ourselves?" — acknowledge that they absolutely could. The question is whether it's the best use of their senior engineers' time when they're trying to ship AI-native products and agent-ready commerce APIs. Then point to the demo: "You saw 4 PRs that would've taken a senior engineer 2-3 days. Devin did it while we were preparing this meeting."
-- **Demo PRs:** You have 4 real PRs ready to show as proof of concept: [PR #1](https://github.com/kllyjsn/stripe-java/pull/1), [PR #2](https://github.com/kllyjsn/stripe-java/pull/2), [PR #3](https://github.com/kllyjsn/stripe-java/pull/3), [PR #4](https://github.com/kllyjsn/stripe-java/pull/4). These are shown during the live demo on slide 7.
+- **For security officers:** Spend extra time on slide 18. Be prepared for questions about data residency, VPC deployment, and audit trails.
+- **For engineering managers:** They'll care most about slides 7-9 (demo) and 14 (scope). They want to see the tool in action and understand the PR review burden.
+- **Objection handling:** If asked "why can't we just do this ourselves?" — acknowledge that they absolutely could. The question is whether it's the best use of their senior engineers' time when they're trying to ship AI-native products and agent-ready commerce APIs.
+- **Demo PRs:** You have 4 real PRs ready to show as proof of concept: [PR #1](https://github.com/kllyjsn/stripe-java/pull/1), [PR #2](https://github.com/kllyjsn/stripe-java/pull/2), [PR #3](https://github.com/kllyjsn/stripe-java/pull/3), [PR #4](https://github.com/kllyjsn/stripe-java/pull/4). Reference these during the demo section if time allows.

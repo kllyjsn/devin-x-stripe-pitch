@@ -356,7 +356,7 @@
 <div class="topbar">
   <div class="topbar-brand"><span>devin</span> x stripe &mdash; presenter notes</div>
   <div class="topbar-slide-info">
-    <div class="slide-counter"><span id="currentNum">01</span> <span class="total">/ 17</span></div>
+    <div class="slide-counter"><span id="currentNum">01</span> <span class="total">/ 20</span></div>
     <div class="slide-title-display" id="currentTitle">Title</div>
   </div>
   <div class="topbar-controls">
@@ -368,7 +368,7 @@
 
 <!-- Progress -->
 <div class="progress-bar">
-  <div class="progress-fill" id="progressFill" style="width: 5.88%;"></div>
+  <div class="progress-fill" id="progressFill" style="width: 5%;"></div>
 </div>
 
 <!-- Main -->
@@ -438,7 +438,7 @@ const slides = [
 <p><strong>Q4:</strong> What's your current <em>policy on AI-assisted code changes</em> in production repos? — Shapes deployment model and review requirements.</p>
 <p><strong>Q5:</strong> Do external contributors go through <em>the same CI/review gates</em> as internal PRs? — Ensures Devin integrates with existing workflow.</p>
 <p><strong>Q6:</strong> Are there <em>specific SDK areas you'd welcome outside help</em> on vs. areas that must stay internal? — Defines scope boundaries and builds trust.</p>
-<p>Let them answer. <strong>Take notes.</strong> Reference their answers in later slides. Example: "You mentioned test updates take X hours per release — that maps directly to the cost model I'll show you on slide 14."</p>`,
+<p>Let them answer. <strong>Take notes.</strong> Reference their answers in later slides. Example: "You mentioned test updates take X hours per release — that maps directly to the cost model I'll show you on slide 17."</p>`,
     tip: "Don't rush past this slide. The more they talk, the more the rest of the presentation lands. This is where you learn what they actually care about."
   },
   {
@@ -453,26 +453,63 @@ const slides = [
     tip: "Spend time here. This slide builds credibility — you've done the homework."
   },
   {
-    num: "07", label: "Live Demo", title: "Let's see Devin in action on your own codebase",
-    notes: `<span class="cue">Have PR tabs pre-loaded in your browser — show real code diffs</span>
-<p>So let me show you exactly what this looks like in practice — <strong>on your own codebase</strong>. I've prepared 4 real pull requests against stripe-java, each demonstrating a different mode of human-AI collaboration.</p>
-<p><strong>PR #1 — Bug Fix.</strong> The webhook timestamp parsing issue. Devin found the bug, wrote a defensive fix with try-catch, added 3 new test cases, and had a passing PR in <em>under 3 minutes</em>. This is the "speed" story.</p>
-<p><strong>PR #2 — Cross-File Fix.</strong> The ClassCastException error handling issue. Devin traced the error path across multiple files, understood the GSON deserialization flow, and added proper type checking. 4 new tests. This is the "depth" story.</p>
-<p><strong>PR #3 — Test Coverage.</strong> RequestTelemetry had zero unit tests. Devin audited the class, identified 11 distinct behaviors to test — header formatting, thread safety, max queue size, metrics tracking — and wrote a complete test suite from scratch. This is the "scale" story.</p>
-<p><strong>PR #4 — Feature Build.</strong> I designed the API for public version constants, Devin implemented the entire class plus 4 tests. Human judgment on the interface, AI execution on the implementation. This is the "collaboration" story.</p>
-<span class="pause">— Walk through each PR in browser tabs (~2-3 min per PR) —</span>
-<p>Now that you've seen what Devin can do, let me put that in context.</p>`,
-    tip: "This is the proof point — belief shifts from 'interesting concept' to 'this actually works.' Spend most time on PR #2 (cross-file) and PR #3 (scale) — hardest to replicate with copilot-style tools."
+    num: "07", label: "Demo Intro", title: "Let's watch Devin tackle Issue #1846",
+    notes: `<span class="cue">Transition to live demo — energy shift</span>
+<p>Okay, so those are the problems. Now let me show you <strong>exactly what it looks like</strong> when Devin tackles one of them.</p>
+<p>We're going to walk through a real session where we pointed Devin at Issue #1846 — the ClassCastException bug that's been open for 18+ months.</p>
+<p>Three numbers to keep in mind: <strong>~25 minutes</strong> of Devin session time. <strong>Zero minutes</strong> of engineer hand-holding. And <strong>one PR</strong> with passing CI at the end.</p>
+<p>Let me switch over to the Devin app and walk you through it.</p>`,
+    tip: "This is a high-energy transition. Stand up if you've been sitting. If doing a live demo, open the Devin webapp now. If walking through screenshots, advance briskly."
   },
   {
-    num: "08", label: "Challenge", title: "Your 2026 roadmap is accelerating",
+    num: "08", label: "Session Flow", title: "From issue to PR in one session",
+    notes: `<span class="cue">Walk through left column (entry points), then right column (timeline)</span>
+<p>First — how do you start? You have <strong>four entry points</strong>, all equivalent:</p>
+<p><strong>Slack</strong> — just @-mention Devin with the issue link. Most teams start here because it's where they already live.</p>
+<p><strong>Devin Webapp</strong> — open a new session, paste the GitHub issue URL. This is what we'll show today.</p>
+<p><strong>GitHub Issues</strong> — assign Devin as an assignee directly on the issue. It picks it up automatically.</p>
+<p><strong>API / Schedule</strong> — trigger via REST API or set up a cron schedule. We'll come back to this on the platform slide.</p>
+<p>Now look at the <em>session timeline</em> on the right. This is what happened in real time:</p>
+<p>At <strong>0:00</strong>, Devin reads the issue, then starts exploring the codebase — using LSP, grep, cross-file analysis. It's not just pattern matching on the issue description. It's actually navigating the code the way an engineer would.</p>
+<p>By <strong>2:30</strong>, it's identified the root cause — a type cast in LiveStripeResponseGetter that assumes JSON responses.</p>
+<p><strong>5:00</strong> — it writes the fix and adds test coverage. Multi-file edit.</p>
+<p><strong>12:00</strong> — runs the full Gradle build and test suite. If something fails, it reads the error and iterates. No human needed.</p>
+<p><strong>18:00</strong> — CI is green. It opens a PR with clean commits, a description that links back to the issue, and all tests passing.</p>
+<p><strong>25:00</strong> — ready for your engineer to review. <em>They spend 15 minutes reviewing, not hours coding.</em></p>`,
+    tip: "If doing a live demo, click through the actual Devin session timeline as you narrate. Point to the shell, editor, and browser panels. If using screenshots, advance through them at this pace."
+  },
+  {
+    num: "09", label: "Proof PRs", title: "We already ran Devin on stripe-java",
+    notes: `<span class="cue">Point to each PR card — this is your receipts slide</span>
+<p>This isn't hypothetical. <strong>We already ran Devin on your repo.</strong> Here are four real PRs.</p>
+<p><strong>PR #1</strong> — the ClassCastException fix we just walked through. Wraps response parsing with proper type checking. Adds 6 unit tests covering HTML, empty, and malformed error responses.</p>
+<p><strong>PR #2</strong> — the NumberFormatException in webhook verification. Validates timestamps before parsing. Edge-case tests for malformed, negative, and overflow values.</p>
+<p><strong>PR #3</strong> — a comprehensive infrastructure test suite. Unit tests across networking, serialization, retry logic, and telemetry. This is the coverage gap we showed on slide 4.</p>
+<p><strong>PR #4</strong> — GraalVM reachability metadata and JSpecify annotation groundwork. Resolves Issue #1905 that your community has been asking for.</p>
+<p>All four PRs have <strong>passing CI</strong>. Total Devin compute time: about 2 hours. Total human review time: about 45 minutes. Total cost in ACUs: roughly $70.</p>
+<p><em>These are ready for your team to review right now if you'd like.</em></p>`,
+    tip: "This is your strongest credibility moment. Offer to pull up the actual PRs on GitHub if the audience wants to see the code. Have the PR URLs ready."
+  },
+  {
+    num: "10", label: "Platform", title: "Scale across all SDKs with the full Devin platform",
+    notes: `<span class="cue">Walk through each of the four platform features</span>
+<p>What we just showed was one session solving one issue. But the real power is the <strong>platform layer</strong> that lets you scale this across all your SDKs.</p>
+<p><strong>Knowledge</strong> — Devin learns your conventions, test patterns, and repo structure. It reuses context across sessions. No re-onboarding every time.</p>
+<p><strong>Playbooks</strong> — codify repeatable workflows. "For each new API version, update tests across all 7 SDKs." Write it once, run it every release.</p>
+<p><strong>Batch Sessions</strong> — parallelize across repos. Kick off 7 Devin sessions simultaneously, one per SDK, each applying the same fix. What takes a human team a week happens in one afternoon.</p>
+<p><strong>Scheduling &amp; CI Hooks</strong> — trigger sessions on a schedule or from CI failures. Devin monitors your repos and acts before you notice the problem.</p>
+<p>The vision: <em>Every time Stripe ships a new API version, Devin automatically updates tests, validates coverage, and opens PRs across all SDKs — before your team starts their morning.</em></p>`,
+    tip: "This slide is about vision. Paint the picture of Devin as a persistent team member, not a one-off tool. If time is tight, hit Knowledge and Batch Sessions and skip the other two."
+  },
+  {
+    num: "11", label: "Challenge", title: "Your 2026 roadmap is accelerating",
     notes: `<p>Stripe is shipping AI-native products, stablecoin rails, and agent-ready commerce APIs on a monthly cadence. Each release requires SDK updates across Java, Node, Python, Ruby, Go, .NET, and PHP.</p>
 <p>Your SDK team is focused on the <strong>StripeClient migration, V2 API rollout, and monthly version trains</strong>. That's the right priority.</p>
 <p>But infrastructure quality — the hand-written 15% where real bugs live — accumulates in the backlog. Every hour on infra debt is an hour not spent on <em>AI billing models, rate cards, or programmable money APIs</em>.</p>`,
     tip: "Frame this as empathy, not criticism. You understand their constraints."
   },
   {
-    num: "09", label: "Solution", title: "Devin: the autonomous software engineer",
+    num: "12", label: "Solution", title: "Devin: the autonomous software engineer",
     notes: `<span class="cue">Walk through the 5-step flow left to right</span>
 <p>So what is Devin? It's an AI software engineer built by Cognition. The key difference from Cursor or GitHub Copilot is <strong>autonomy</strong>.</p>
 <p>Copilot-style tools assist while <em>you</em> code. You're in the driver's seat. Devin works independently — keeping your SDKs in lockstep with monthly API releases while your senior engineers focus on <em>AI-native products and agent-ready commerce</em>.</p>
@@ -480,7 +517,7 @@ const slides = [
     tip: null
   },
   {
-    num: "10", label: "Comparison", title: "Why Devin, not Cursor or Claude Code?",
+    num: "13", label: "Comparison", title: "Why Devin, not Cursor or Claude Code?",
     notes: `<span class="cue">Reference each row in the table</span>
 <p>I want to be direct about this comparison because I know you're evaluating multiple tools.</p>
 <p><strong>Autonomy</strong> — Cursor and Claude Code are human-driven, file-at-a-time. Devin runs fully autonomous sessions.</p>
@@ -489,7 +526,7 @@ const slides = [
     tip: "Engineering managers will have the most questions here. Be ready for 'but can it really handle our codebase?'"
   },
   {
-    num: "11", label: "Scope", title: "Three workstreams, 3-5 focused PRs",
+    num: "14", label: "Scope", title: "Three workstreams, 3-5 focused PRs",
     notes: `<span class="cue">Walk through each of the three columns</span>
 <p><strong>First — unit test coverage.</strong> Audit all 30 hand-written infrastructure files. 2 to 3 PRs. <em>Supports: Global reliability, incident risk reduction.</em></p>
 <p><strong>Second — bug fixes &amp; resilience.</strong> Resolve the five long-standing issues. 1 to 2 PRs. <em>Supports: Ship AI/stablecoin features without breaking merchants.</em></p>
@@ -499,7 +536,7 @@ const slides = [
     tip: null
   },
   {
-    num: "12", label: "Cost Analysis", title: "83% cost reduction vs. manual engineering",
+    num: "15", label: "Cost Analysis", title: "83% cost reduction vs. manual engineering",
     notes: `<span class="cue">Reference the table on the left, then the bar chart on the right</span>
 <p>Let's talk numbers.</p>
 <p><strong>Manual approach</strong> — 50 engineer hours at $150/hr. $7,500 and 2-3 weeks. And that's an engineer who isn't working on API features.</p>
@@ -509,7 +546,7 @@ const slides = [
     tip: null
   },
   {
-    num: "13", label: "Annual ROI", title: "$702K\u2013$1.5M in annual value",
+    num: "16", label: "Annual ROI", title: "$702K\u2013$1.5M in annual value",
     notes: `<span class="cue">This is one of your most important slides — slow down</span>
 <p>That per-engagement savings is just the starting point. The real value is <strong>annual and recurring</strong>.</p>
 <p>Conservative: <strong>$702K/year</strong>. Aggressive: <strong>$1.5 million</strong>. Devin Enterprise cost: $50K-$100K. That's roughly a <em>14x return</em>.</p>
@@ -518,7 +555,7 @@ const slides = [
     tip: "For the CTO: lead with $702K\u2013$1.5M and 14x ROI. Emphasize recaptured senior capacity — that's the language CTOs respond to."
   },
   {
-    num: "14", label: "Cost Model", title: "Where the value comes from",
+    num: "17", label: "Cost Model", title: "Where the value comes from",
     notes: `<span class="cue">Walk through each row of the table</span>
 <p><strong>Engineering time saved</strong> — ~20 hrs/month per SDK x 7 SDKs x $150/hr = $252K-$504K/year.</p>
 <p><strong>Senior capacity recaptured</strong> — this resonates most with CTOs. Every hour on routine maintenance is an hour <em>not</em> spent on AI billing models, rate cards, or programmable money APIs. <strong>$350K-$500K</strong> in redirected capacity.</p>
@@ -527,7 +564,7 @@ const slides = [
     tip: "If anyone challenges the numbers, point out that each value driver independently justifies the investment."
   },
   {
-    num: "15", label: "Security", title: "Built for enterprise security standards",
+    num: "18", label: "Security", title: "Built for enterprise security standards",
     notes: `<span class="cue">Security officers will focus here — be thorough</span>
 <p><strong>Isolated execution</strong> — every session in its own sandboxed VM. No shared state.</p>
 <p><strong>Full audit trail</strong> — every action logged and reviewable.</p>
@@ -538,7 +575,7 @@ const slides = [
     tip: "Be prepared for: data residency, VPC deployment, running in Stripe's cloud. Answer: Cognition offers Dedicated SaaS where the Devbox runs in the customer's cloud."
   },
   {
-    num: "16", label: "Timeline", title: "From kickoff to merged PRs in 2 weeks",
+    num: "19", label: "Timeline", title: "From kickoff to merged PRs in 2 weeks",
     notes: `<span class="cue">Walk through Week 1 → Week 2 → Ongoing</span>
 <p><strong>Week 1</strong> — Clone repo, analyze codebase, submit bug fix PRs for issues 1846, 2149, 2001. Begin unit test coverage.</p>
 <p><strong>Week 2</strong> — Complete coverage across 30 files, iterate on review feedback, begin GraalVM and JSpecify groundwork.</p>
@@ -547,7 +584,7 @@ const slides = [
     tip: null
   },
   {
-    num: "17", label: "Call to Action", title: "Let's ship better SDKs, faster.",
+    num: "20", label: "Call to Action", title: "Let's ship better SDKs, faster.",
     notes: `<span class="cue">Make eye contact — this is the ask</span>
 <p>Start with stripe-java. Prove the model in two weeks with <strong>measurable results</strong>.</p>
 <p>Then scale across the portfolio — stripe-node, stripe-python, stripe-ruby, stripe-go. Same patterns, minimal incremental cost.</p>
