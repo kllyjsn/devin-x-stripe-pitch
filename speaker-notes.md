@@ -19,7 +19,7 @@
 >
 > I want to spend the first 10 to 15 minutes on discovery. I've done a deep audit of your public SDK portfolio and stripe-java specifically. I'll show you what we've learned, and I'd love your perspective on where we're right, where we're wrong, and what priorities matter most to you.
 >
-> After that, we'll spend about 5 minutes on specific issues we've found, 5 minutes on how Devin works, 10 minutes on the impact and cost model, and then open it up for discussion.
+> After that, we'll look at specific issues, then I'll walk you through a live demo of 4 real PRs against your codebase, followed by the impact and cost model, and then open it up for discussion.
 >
 > The goal is that by the time we get to the proposal, it's already shaped by your input. Sound good?
 
@@ -92,7 +92,7 @@
 >
 > **Question 6:** Are there specific SDK areas you'd welcome outside help on versus areas that must stay internal? — This defines scope boundaries upfront and builds trust.
 >
-> *Let them answer. Take notes. Reference their answers in later slides. For example: "You mentioned that test updates take X hours per release — that maps directly to the cost model I'll show you on slide 13."*
+> *Let them answer. Take notes. Reference their answers in later slides. For example: "You mentioned that test updates take X hours per release — that maps directly to the cost model I'll show you on slide 14."*
 
 **Presenter tip:** Don't rush past this slide. This is the heart of the discovery phase. Aim for 5-8 minutes of actual discussion here. The more they talk, the more the rest of the presentation lands.
 
@@ -112,10 +112,39 @@
 > And issue 1905 — GraalVM native image support. Five upvotes, increasingly critical as Quarkus, Micronaut, and Spring Native adoption grows.
 >
 > These aren't obscure edge cases. They affect production error handling and developer experience for your largest customers.
+>
+> And rather than just talk about these issues — let me show you what it looks like when we actually fix them.
 
 ---
 
-## Slide 7: The Challenge
+## Slide 7: Live Demo
+**"Let's see Devin in action on your own codebase"**
+
+> So let me show you exactly what this looks like in practice — on your own codebase. I've prepared 4 real pull requests against stripe-java, each demonstrating a different mode of human-AI collaboration.
+>
+> *Point to each PR card:*
+>
+> **PR #1 — Bug Fix.** The webhook timestamp parsing issue I just showed you. Devin found the bug, wrote a defensive fix with try-catch, added 3 new test cases, and had a passing PR in under 3 minutes. This is the "speed" story.
+>
+> **PR #2 — Cross-File Fix.** The ClassCastException error handling issue. This one required Devin to trace the error path across multiple files, understand the GSON deserialization flow, and add proper type checking. 4 new tests. This is the "depth" story.
+>
+> **PR #3 — Test Coverage.** RequestTelemetry had zero unit tests. Devin audited the class, identified 11 distinct behaviors to test — header formatting, thread safety, max queue size, metrics tracking — and wrote a complete test suite from scratch. This is the "scale" story.
+>
+> **PR #4 — Feature Build.** I designed the API for public version constants, and Devin implemented the entire class plus 4 tests. Human judgment on the interface, AI execution on the implementation. This is the "collaboration" story.
+>
+> *[Open each PR in a browser tab and walk through the code changes. Spend ~2-3 min per PR.]*
+>
+> **Links:**
+> - [PR #1: Webhook timestamp fix](https://github.com/kllyjsn/stripe-java/pull/1)
+> - [PR #2: ClassCastException fix](https://github.com/kllyjsn/stripe-java/pull/2)
+> - [PR #3: RequestTelemetry tests](https://github.com/kllyjsn/stripe-java/pull/3)
+> - [PR #4: ApiVersion constants](https://github.com/kllyjsn/stripe-java/pull/4)
+
+**Presenter tip:** This is the proof point — the moment belief shifts from "interesting concept" to "this actually works." Have the PR tabs pre-loaded in your browser before the meeting. Show the actual diffs — the audience wants to see real code, not slides. Spend the most time on PR #2 (cross-file analysis) and PR #3 (scale) — these are the hardest to replicate with copilot-style tools. After walking through the PRs, transition with: "Now that you've seen what Devin can do, let me put that in context."
+
+---
+
+## Slide 8: The Challenge
 **"SDK engineers are stretched between generated code and infrastructure quality"**
 
 > Here's the root cause — and this isn't a criticism, it's a resourcing reality.
@@ -124,11 +153,11 @@
 >
 > Your SDK team is focused on shipping new API versions, maintaining the code generator, and supporting the V2 migration. Infrastructure quality improvements accumulate in the backlog. Some issues have been open for 18+ months.
 >
-> That's exactly the kind of work that's well-suited for autonomous engineering.
+> You just saw in the demo how those exact issues can be resolved autonomously. That's the kind of work that's well-suited for Devin.
 
 ---
 
-## Slide 8: The Solution
+## Slide 9: The Solution
 **"Devin: the autonomous software engineer"**
 
 > So what is Devin? It's an AI software engineer built by Cognition. The key difference from Cursor or GitHub Copilot is autonomy.
@@ -139,7 +168,7 @@
 
 ---
 
-## Slide 9: Competitive Comparison
+## Slide 10: Competitive Comparison
 **"Why Devin, not Cursor or Claude Code?"**
 
 > I want to be direct about this comparison because I know you're evaluating multiple tools.
@@ -152,7 +181,7 @@
 
 ---
 
-## Slide 10: Proposed Scope
+## Slide 11: Proposed Scope
 **"Three workstreams, 3-5 focused PRs"**
 
 > Here's what we're proposing for the initial engagement. Three workstreams.
@@ -167,7 +196,7 @@
 
 ---
 
-## Slide 11: Cost Analysis
+## Slide 12: Cost Analysis
 **"83% cost reduction vs. manual engineering"**
 
 > Let's talk numbers. Manual approach — 50 hours at $150/hr, $7,500. Cursor or Claude Code — 25 hours, $3,770. Devin Enterprise — 5 hours of review plus compute, $1,250 total.
@@ -176,7 +205,7 @@
 
 ---
 
-## Slide 12: Annual ROI
+## Slide 13: Annual ROI
 **"$702K-$1.5M in annual value"**
 
 > That per-engagement savings is just the starting point. The real value is annual and recurring.
@@ -189,7 +218,7 @@
 
 ---
 
-## Slide 13: Full Cost Model
+## Slide 14: Full Cost Model
 **"Where the value comes from"**
 
 > Three layers of value, each independently justifying the investment.
@@ -204,7 +233,7 @@
 
 ---
 
-## Slide 14: Security & Compliance
+## Slide 15: Security & Compliance
 **"Built for enterprise security standards"**
 
 > I know security is top of mind for a payments infrastructure company. Six key points:
@@ -215,7 +244,7 @@
 
 ---
 
-## Slide 15: Engagement Timeline
+## Slide 16: Engagement Timeline
 **"From kickoff to merged PRs in 2 weeks"**
 
 > Week 1 — discovery and first PRs. Bug fixes for issues 1846, 2149, and 2001. Begin unit test coverage.
@@ -228,7 +257,7 @@
 
 ---
 
-## Slide 16: Call to Action
+## Slide 17: Call to Action
 **"Let's ship better SDKs, faster."**
 
 > Start with stripe-java. Prove the model. Scale across the portfolio. Your engineers focus on what matters — we handle the infrastructure quality layer.
@@ -242,10 +271,11 @@
 ## General Tips for Delivery
 
 - **Discovery first:** Slides 2-5 are the most important part of the presentation. Spend 10-15 minutes here. The more they talk, the better the rest lands.
-- **Reference their answers:** Throughout slides 6-16, callback to things they said during discovery. "You mentioned X — that's exactly why we prioritized Y."
-- **Pace:** After discovery, spend the most time on slides 12 (annual ROI) and 14 (security). These generate the most questions from CTOs and security officers respectively.
+- **Demo is the proof point:** Slide 7 is where belief shifts from "interesting concept" to "this actually works." Have PR tabs pre-loaded and walk through real code diffs. Spend 10-12 minutes here.
+- **Reference their answers:** Throughout slides 8-17, callback to things they said during discovery. "You mentioned X — that's exactly why we prioritized Y."
+- **Pace:** After discovery, spend the most time on slides 13 (annual ROI) and 15 (security). These generate the most questions from CTOs and security officers respectively.
 - **For the CTO:** Lead with the $702K-$1.5M annual value and the 14x ROI. Emphasize recaptured senior capacity.
-- **For security officers:** Spend extra time on slide 14. Be prepared for questions about data residency, VPC deployment, and audit trails.
-- **For engineering managers:** They'll care most about slides 6, 9, and 10. They want to know the issues are real, the approach is sound, and the PRs won't create review burden.
-- **Objection handling:** If asked "why can't we just do this ourselves?" — acknowledge that they absolutely could. The question is whether it's the best use of their senior engineers' time.
-- **Demo PRs:** You have 4 real PRs ready to show as proof of concept: [PR #1](https://github.com/kllyjsn/stripe-java/pull/1), [PR #2](https://github.com/kllyjsn/stripe-java/pull/2), [PR #3](https://github.com/kllyjsn/stripe-java/pull/3), [PR #4](https://github.com/kllyjsn/stripe-java/pull/4). Reference these during the demo section if time allows.
+- **For security officers:** Spend extra time on slide 15. Be prepared for questions about data residency, VPC deployment, and audit trails.
+- **For engineering managers:** They'll care most about slides 6-7 (the issues + demo), 10 (comparison), and 11 (scope). They want to know the issues are real, the approach is sound, and the PRs won't create review burden.
+- **Objection handling:** If asked "why can't we just do this ourselves?" — acknowledge that they absolutely could. The question is whether it's the best use of their senior engineers' time. Then point to the demo: "You saw 4 PRs that would've taken a senior engineer 2-3 days. Devin did it while we were preparing this meeting."
+- **Demo PRs:** You have 4 real PRs ready to show as proof of concept: [PR #1](https://github.com/kllyjsn/stripe-java/pull/1), [PR #2](https://github.com/kllyjsn/stripe-java/pull/2), [PR #3](https://github.com/kllyjsn/stripe-java/pull/3), [PR #4](https://github.com/kllyjsn/stripe-java/pull/4). These are shown during the live demo on slide 7.
