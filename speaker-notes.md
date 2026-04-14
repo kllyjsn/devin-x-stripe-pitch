@@ -91,31 +91,19 @@
 ---
 
 ## Slide 6: Discovery Questions
-**"Questions for the room"**
+**"Three questions to guide our conversation"**
 
-> Before we go further, I have six questions — organized by the three tiers, so each person in the room hears questions that speak to their world.
+> Before we go further, I have three questions — one for each level of your organization. These will shape the rest of our conversation.
 >
-> *For executive sponsors — the business layer:*
+> **Question 1 — Business Strategy:** How does SDK infrastructure quality factor into your 2026 planning for AI-native products and stablecoin rails? — This helps us connect our work to your strategic priorities.
 >
-> **Question 1:** How does SDK infrastructure quality factor into your 2026 planning for AI-native products and stablecoin rails? — This helps us connect our work to your strategic priorities.
+> **Question 2 — Engineering Leadership:** How does your team prioritize infrastructure maintenance versus new features given the accelerating release cadence? — This tells us where Devin fits in your workflow.
 >
-> **Question 2:** When a SDK bug reaches merchants at Stripe's scale, what's the business cost in trust, support load, and adoption friction? — This helps us quantify the risk we're addressing.
+> **Question 3 — Developers & Security:** What's your current policy on AI-assisted code changes in production repos? — This shapes how we'd deploy and what review requirements we'd follow.
 >
-> *For engineering managers — the team operations layer:*
->
-> **Question 3:** How does your team prioritize infrastructure maintenance versus new features given the accelerating release cadence? — This tells us where Devin fits in your workflow.
->
-> **Question 4:** What's the biggest bottleneck in your SDK release cycle — and how much time goes to test updates per release? — This quantifies the recurring cost we can offset.
->
-> *For developers and security — the hands-on-keyboard layer:*
->
-> **Question 5:** What's your current policy on AI-assisted code changes in production repos? — This shapes how we'd deploy and what review requirements we'd follow.
->
-> **Question 6:** Are there specific SDK areas you'd welcome outside help on versus areas that must stay internal? — This defines scope boundaries upfront and builds trust.
->
-> *Let them answer. Take notes. Reference their answers in later slides. For example: "You mentioned that test updates take X hours per release — that maps directly to the cost model I'll show you on slide 18."*
+> *Let them answer. Take notes. Reference their answers in later slides. For example: "You mentioned that maintenance takes X% of your sprint — that maps directly to the cost model I'll show you on slide 18."*
 
-**Presenter tip:** Don't rush past this slide. This is the heart of the discovery phase. Aim for 5-8 minutes of actual discussion here. The 3-group structure naturally invites each persona to contribute. The more they talk, the more the rest of the presentation lands.
+**Presenter tip:** Don't rush past this slide. This is the heart of the discovery phase. Aim for 5-8 minutes of actual discussion here. Three focused questions are easier for the room to engage with than six. The more they talk, the more the rest of the presentation lands.
 
 ---
 
