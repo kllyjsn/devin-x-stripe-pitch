@@ -519,13 +519,14 @@ const slides = [
     tip: null
   },
   {
-    num: "13", label: "Comparison", title: "Why Devin, not Cursor or Claude Code?",
-    notes: `<span class="cue">Reference each row in the table</span>
-<p>I want to be direct about this comparison because I know you're evaluating multiple tools.</p>
-<p><strong>Autonomy</strong> — Cursor and Claude Code are human-driven, file-at-a-time. Devin runs fully autonomous sessions.</p>
-<p><strong>Build and CI</strong> — With Cursor, you run the build, read the error, paste it back, get a fix, run again. Devin does that loop autonomously.</p>
-<p><strong>Async execution</strong> — Cursor requires an engineer in the seat. For a team stretched between shipping AI-native features and maintaining SDK infrastructure, Devin runs in the background. <em>That's the real differentiator.</em></p>`,
-    tip: "Engineering managers will have the most questions here. Be ready for 'but can it really handle our codebase?'"
+    num: "13", label: "Build vs. Buy", title: "Why buy Devin instead of building or hiring?",
+    notes: `<span class="cue">Address the elephant in the room — the build vs. buy question</span>
+<p><strong>Hiring:</strong> $350-500K/yr loaded. 3-6 months to ramp. And that hire competes with roadmap priorities — every engineer doing maintenance is <em>not</em> building AI-native products.</p>
+<p><strong>Copilot tools (Cursor/Claude Code):</strong> Faster than manual, but still require an engineer in-seat. You trade coding time for prompting time. Doesn't scale — one human per SDK, per session.</p>
+<p><strong>Devin:</strong> Ramps in hours, not months. Runs overnight, delivers PRs by morning. Parallelizes across all 7+ SDKs. $50-100K/yr vs. $350-500K for a single hire.</p>
+<p><strong>The cost row tells the story:</strong> $7,500 per pass if you hire, $3,770 with copilots, $1,250 with Devin. 83% savings vs. hiring, and it scales linearly across all SDKs.</p>
+<p><strong>Bottom line:</strong> The question isn't whether your team <em>could</em> do this work. The question is whether infrastructure maintenance is the highest-value use of their time.</p>`,
+    tip: "Engineering managers will ask 'but can it really handle our codebase?' CTOs will ask about the build vs. buy math. Have the $350-500K hire cost vs. $50-100K Devin cost ready."
   },
   {
     num: "14", label: "Scope", title: "Three workstreams, 3-5 focused PRs",

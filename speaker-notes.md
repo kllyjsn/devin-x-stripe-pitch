@@ -250,16 +250,22 @@
 
 ---
 
-## Slide 14: Competitive Comparison
-**"Why Devin, not Cursor or Claude Code?"**
+## Slide 14: Build vs. Buy & Competitive Comparison
+**"Why buy Devin instead of building or hiring?"**
 
-> I want to be direct about this comparison because I know you're evaluating multiple tools.
+> This is the slide where I want to address the elephant in the room — the build vs. buy question. Because I know the first instinct is: "We could just hire someone to do this."
 >
-> The six differentiators that matter most: autonomy, codebase exploration, build and CI iteration, multi-file refactoring, async execution, and pattern consistency.
+> And you absolutely could. But let's look at the trade-offs across three options: hiring or building in-house, using copilot-style tools like Cursor or Claude Code, and buying Devin.
 >
-> The bottom line — with Cursor, you trade coding time for prompting time. You're still in the seat. With Devin, you trade it for review time, which is 5 to 10x less.
+> **Hiring:** A senior Java engineer costs $350-500K per year fully loaded. Takes 3-6 months to ramp up on your codebase. And here's the real cost — that hire competes with roadmap priorities. Every engineer doing maintenance is an engineer *not* building AI-native products or stablecoin rails.
 >
-> For a team that's already stretched between shipping new AI-native features and maintaining SDK infrastructure, async execution is the real differentiator. Devin runs in the background while your team does other work.
+> **Copilot tools:** Faster than manual, but still require an engineer in-seat. You're trading coding time for prompting time. And they don't scale — you need a human per SDK, per session.
+>
+> **Devin:** Ramps in hours, not months. Runs overnight and delivers PRs by morning. Parallelizes across all 7+ SDKs simultaneously. And the cost is $50-100K/yr vs. $350-500K for a single hire.
+>
+> The bottom line on build vs. buy: the question isn't whether your team *could* do this work. They obviously can. The question is whether infrastructure maintenance is the highest-value use of their time when you're trying to ship AI-native products and agent-ready commerce APIs on a monthly cadence.
+>
+> Look at the cost row — $7,500 per pass if you hire, $3,770 with copilots, $1,250 with Devin. That's 83% savings vs. hiring, and it scales linearly across all your SDKs.
 
 ---
 

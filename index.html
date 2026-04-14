@@ -1071,60 +1071,78 @@
   <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">13</span></div>
 </div>
 
-<!-- SLIDE 14: DEVIN VS ALTERNATIVES -->
+<!-- SLIDE 14: BUILD VS BUY & COMPETITIVE COMPARISON -->
 <div class="slide slide-light">
   <div class="slide-content">
   <div class="accent-line"></div>
-  <div class="slide-label">Competitive Comparison</div>
-  <h2>Why Devin, not Cursor or Claude Code?</h2>
-  <table class="cost-table" style="margin-top: 16px;">
+  <div class="slide-label">Build vs. Buy &amp; Competitive Comparison</div>
+  <h2>Why buy Devin instead of building or hiring?</h2>
+  <table class="cost-table" style="margin-top: 12px; font-size: 13px;">
     <thead>
       <tr>
-        <th style="width: 25%;">Capability</th>
-        <th style="width: 25%;">Cursor / Claude Code</th>
-        <th style="width: 25%;">Devin</th>
-        <th style="width: 25%;">Impact</th>
+        <th style="width: 18%;">Capability</th>
+        <th style="width: 20%;">Hire / Build In-House</th>
+        <th style="width: 20%;">Cursor / Claude Code</th>
+        <th style="width: 20%;">Devin</th>
+        <th style="width: 22%;">Why It Matters</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td style="font-weight:600;">Autonomy</td>
+        <td>Fully human-driven</td>
         <td>Human-driven, file-at-a-time</td>
         <td style="color: var(--stripe-purple); font-weight:600;">Fully autonomous sessions</td>
         <td>Engineer reviews output, not every step</td>
       </tr>
       <tr>
-        <td style="font-weight:600;">Codebase exploration</td>
-        <td>Manual file selection</td>
-        <td style="color: var(--stripe-purple); font-weight:600;">LSP, grep, cross-file analysis</td>
-        <td>Discovers coverage gaps without guidance</td>
+        <td style="font-weight:600;">Ramp-up time</td>
+        <td>3-6 months per new hire</td>
+        <td>Days (but still in-seat)</td>
+        <td style="color: var(--stripe-purple); font-weight:600;">Hours &mdash; learns repo conventions on first session</td>
+        <td>No onboarding lag, no attrition risk</td>
       </tr>
       <tr>
         <td style="font-weight:600;">Build &amp; CI</td>
+        <td>Human runs, human checks</td>
         <td>Requires human to run/check</td>
         <td style="color: var(--stripe-purple); font-weight:600;">Runs builds, reads CI logs, iterates</td>
         <td>Eliminates push-fail-fix-push cycle</td>
       </tr>
       <tr>
-        <td style="font-weight:600;">Multi-file refactors</td>
-        <td>Context window limited</td>
-        <td style="color: var(--stripe-purple); font-weight:600;">Persistent context, unlimited scope</td>
-        <td>Handles 20-30 files per session</td>
+        <td style="font-weight:600;">Scaling</td>
+        <td>Linear cost &mdash; each SDK needs headcount</td>
+        <td>One engineer + tool per SDK</td>
+        <td style="color: var(--stripe-purple); font-weight:600;">Parallel sessions across all 7+ SDKs</td>
+        <td>One afternoon replaces one team-week</td>
       </tr>
       <tr>
         <td style="font-weight:600;">Async execution</td>
+        <td>Business hours only</td>
         <td>Requires engineer in-seat</td>
-        <td style="color: var(--stripe-purple); font-weight:600;">Runs in background, delivers PR</td>
+        <td style="color: var(--stripe-purple); font-weight:600;">Runs overnight, delivers PRs by morning</td>
         <td>Zero engineer wait time</td>
       </tr>
       <tr>
+        <td style="font-weight:600;">Total cost (stripe-java)</td>
+        <td>$7,500 per pass (50 hrs @ $150)</td>
+        <td>$3,770 per pass (25 hrs @ $150)</td>
+        <td style="color: var(--stripe-purple); font-weight:600;">$1,250 per pass (5 hrs review + ACUs)</td>
+        <td>83% reduction vs. hiring, 67% vs. copilots</td>
+      </tr>
+      <tr>
         <td style="font-weight:600;">Pattern consistency</td>
+        <td>Varies by engineer</td>
         <td>Varies across prompts</td>
         <td style="color: var(--stripe-purple); font-weight:600;">Learns once, replicates uniformly</td>
-        <td>Consistent test quality across all files</td>
+        <td>Consistent quality across all files &amp; SDKs</td>
       </tr>
     </tbody>
   </table>
+  <div style="margin-top: 10px; padding: 10px 20px; background: rgba(99,91,255,0.06); border: 1px solid rgba(99,91,255,0.15); border-radius: 8px; display: flex; align-items: center; gap: 14px;">
+    <div style="font-size: 20px; flex-shrink: 0;">&#128161;</div>
+    <p style="font-size: 13px; color: var(--stripe-slate); margin: 0;"><strong style="color: var(--stripe-purple);">The build vs. buy question:</strong> Hiring a senior Java engineer costs $350-500K/yr loaded, takes 3-6 months to ramp, and still competes with roadmap priorities. Devin costs ~$50-100K/yr, ramps in hours, and runs in parallel across all SDKs without displacing headcount from strategic work.</p>
+  </div>
   </div>
   <div class="slide-bottom-bar"><span>Devin &times; Stripe</span><span class="slide-num">14</span></div>
 </div>
